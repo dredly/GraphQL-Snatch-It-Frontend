@@ -2,7 +2,7 @@ import { useState } from "react"
 import { useMutation } from "@apollo/client"
 import { CREATE_PLAYER } from "../mutations"
 
-const JoinForm = () => {
+const JoinForm = ({setCurrentPlayer}: {setCurrentPlayer: React.Dispatch<React.SetStateAction<string>>}) => {
 	const [playerName, setPlayerName] = useState('')
 	const [join] = useMutation(CREATE_PLAYER)
 	
@@ -10,6 +10,7 @@ const JoinForm = () => {
 		evt.preventDefault()
 		console.log(`Welcome ${playerName}`)
 		join({variables: {name: playerName}})
+		setCurrentPlayer(playerName)
 		setPlayerName('')
 	}
 

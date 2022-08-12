@@ -1,8 +1,18 @@
+import { useState } from "react";
 import JoinForm from "./components/JoinForm";
+import Lobby from "./components/Lobby";
 
 const App = () => {
+  const [currentPlayer, setCurrentPlayer] = useState('')
   return (
-    <JoinForm />  
+    <div>
+      {currentPlayer 
+        ? <div>
+          <Lobby />
+        </div>
+        : <JoinForm setCurrentPlayer={setCurrentPlayer}/> 
+      } 
+    </div>
   );
 }
 
