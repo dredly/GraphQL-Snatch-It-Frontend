@@ -1,10 +1,8 @@
-import Letter from "./components/Letter";
+import JoinForm from "./components/JoinForm";
 
 const App = () => {
   return (
-    <div>
-      <Letter character="A"/>
-    </div>   
+    <JoinForm />  
   );
 }
 
