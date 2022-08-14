@@ -11,7 +11,7 @@ export const CREATE_PLAYER = gql`
 
 export const CREATE_GAME = gql`
 	mutation createGame($playerId: ID!) {
-		createGame(playerID: $$playerId) {
+		createGame(playerID: $playerId) {
 			id
     		started
     		players {

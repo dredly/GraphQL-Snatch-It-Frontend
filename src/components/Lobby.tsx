@@ -1,10 +1,11 @@
-import { useQuery, useSubscription } from "@apollo/client"
+import { useMutation, useQuery, useSubscription } from "@apollo/client"
 import { ALL_GAMES } from "../queries"
+import { CREATE_GAME } from "../mutations"
 import { GAME_ADDED } from "../subscriptions"
 import { GameInfo } from "../types"
 import Game from "./Game"
 
-const Lobby = () => {
+const Lobby = ({ currentPlayerId }: {currentPlayerId: string}) => {
 	useSubscription(GAME_ADDED, {
 		onSubscriptionData: ({ subscriptionData }) => {
 			console.log(subscriptionData)
@@ -13,6 +14,8 @@ const Lobby = () => {
 
 	const queryResult = useQuery(ALL_GAMES)
 
+	const [addGame] = useMutation(CREATE_GAME)
+
 	if (queryResult.loading) {
 		return <div>...loading</div>;
 	}
@@ -20,7 +23,7 @@ const Lobby = () => {
 	const games = queryResult.data.allGames as GameInfo[];
 
 	const handleNewGame = () => {
-		addGame({variables: {playerId: }})
+		addGame({variables: {playerId: currentPlayerId}})
 	}
 
 	return (

@@ -9,7 +9,7 @@ const App = () => {
     <div>
       {currentPlayer 
         ? <div>
-          <Lobby />
+          <Lobby currentPlayerId={currentPlayer}/>
         </div>
         : <JoinForm setCurrentPlayer={setCurrentPlayer}/> 
       } 

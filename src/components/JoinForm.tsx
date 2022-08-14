@@ -6,11 +6,11 @@ const JoinForm = ({setCurrentPlayer}: {setCurrentPlayer: React.Dispatch<React.Se
 	const [playerName, setPlayerName] = useState('')
 	const [join] = useMutation(CREATE_PLAYER)
 	
-	const handleSubmit = (evt: { preventDefault: () => void }) => {
+	const handleSubmit = async (evt: { preventDefault: () => void }) => {
 		evt.preventDefault()
 		console.log(`Welcome ${playerName}`)
-		join({variables: {name: playerName}})
-		setCurrentPlayer(playerName)
+		const { data } = await join({variables: {name: playerName}})
+		setCurrentPlayer(data.createPlayer.id)
 		setPlayerName('')
 	}
 
