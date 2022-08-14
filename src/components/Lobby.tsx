@@ -4,9 +4,11 @@ import { CREATE_GAME } from "../mutations"
 import { GAME_ADDED } from "../subscriptions"
 import { GameInfo } from "../types"
 import Game from "./Game"
+import { useState } from "react"
 
 const Lobby = ({ currentPlayerId }: {currentPlayerId: string}) => {
 	const client = useApolloClient()
+	const [inGame, setInGame] =  useState(false)
 
 	useSubscription(GAME_ADDED, {
 		onSubscriptionData: ({ subscriptionData }) => {
@@ -30,6 +32,7 @@ const Lobby = ({ currentPlayerId }: {currentPlayerId: string}) => {
 	const games = queryResult.data.allGames as GameInfo[];
 
 	const handleNewGame = () => {
+		setInGame(true)
 		addGame({variables: {playerId: currentPlayerId}})
 	}
 
@@ -39,7 +42,10 @@ const Lobby = ({ currentPlayerId }: {currentPlayerId: string}) => {
 			{games.map(g => (
 				<Game players={g.players} id={g.id} key={g.id} />
 			))}
-			<button onClick={handleNewGame}>Create a new game</button>
+			{inGame
+				? null
+				: <button onClick={handleNewGame}>Create a new game</button>
+			}
 		</div>
 	)
 }
