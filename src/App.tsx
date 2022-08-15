@@ -1,19 +1,20 @@
 import { useState } from "react";
 import JoinForm from "./components/JoinForm";
 import Lobby from "./components/Lobby";
+import { UserContext } from ".";
 
 // Next time: store currentPlayer by ID instead of by name
 const App = () => {
   const [currentPlayer, setCurrentPlayer] = useState('')
   return (
-    <div>
+    <UserContext.Provider value={currentPlayer}>
       {currentPlayer 
         ? <div>
-          <Lobby currentPlayerId={currentPlayer}/>
+          <Lobby />
         </div>
         : <JoinForm setCurrentPlayer={setCurrentPlayer}/> 
       } 
-    </div>
+    </UserContext.Provider>
   );
 }
 

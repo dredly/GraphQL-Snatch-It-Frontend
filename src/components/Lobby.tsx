@@ -4,14 +4,17 @@ import { CREATE_GAME } from "../mutations"
 import { GAME_ADDED } from "../subscriptions"
 import { GameInfo } from "../types"
 import Game from "./Game"
-import { useState } from "react"
+import { useState, useContext } from "react"
+import { UserContext } from ".."
 
-const Lobby = ({ currentPlayerId }: {currentPlayerId: string}) => {
+const Lobby = () => {
 	const client = useApolloClient()
 	const [inGame, setInGame] =  useState(false)
+	const currentPlayerId = useContext(UserContext)
 
 	useSubscription(GAME_ADDED, {
 		onSubscriptionData: ({ subscriptionData }) => {
+			console.log('Got subscription')
 			const addedGame = subscriptionData.data.gameAdded
 			client.cache.updateQuery({query: ALL_GAMES}, ({ allGames }) => {
 				return {
