@@ -22,3 +22,17 @@ export const CREATE_GAME = gql`
 		}
 	}
 `
+
+export const JOIN_GAME = gql`
+	mutation joinGame($playerId: ID!, $gameId: ID!) {
+		joinGame(playerID: $playerId, gameID: $gameId) {
+			id
+    		started
+    		players {
+      			id
+      			name
+				ready
+    		}
+		}
+	}
+`

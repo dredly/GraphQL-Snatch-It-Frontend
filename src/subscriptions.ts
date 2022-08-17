@@ -13,3 +13,17 @@ export const GAME_ADDED = gql`
 		}
 	}
 `
+
+export const PLAYER_JOINED = gql`
+	subscription {
+		playerJoined {
+			id
+			started
+			players {
+				id
+				name
+				ready
+			}
+		}
+	}
+`
