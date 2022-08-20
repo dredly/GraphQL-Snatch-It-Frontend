@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useSubscription, useApolloClient } from "@apollo/client"
 import { ALL_GAMES } from "../queries"
 import { CREATE_GAME } from "../mutations"
-import { GAME_ADDED, PLAYER_JOINED } from "../subscriptions"
+import { GAME_ADDED, PLAYER_JOINED, PLAYER_READY } from "../subscriptions"
 import { GameInfo } from "../types"
 import Game from "./Game"
 import { useState, useContext } from "react"
@@ -30,6 +30,21 @@ const Lobby = () => {
 			client.cache.updateQuery({query: ALL_GAMES}, ({ allGames }) => {
 				return {
 					allGames: allGames.map((g: { id: string }) => g.id === gameId ? updatedGame : g),
+				}
+			})
+		}
+	})
+
+	useSubscription(PLAYER_READY, {
+		onSubscriptionData: ({ subscriptionData }) => {
+			const updatedGame = subscriptionData.data.playerReady
+			console.log("updatedGame", updatedGame)
+			const gameId = updatedGame.id
+			client.cache.updateQuery({query: ALL_GAMES}, ({ allGames }) => {
+				const updatedGames = allGames.map((g: { id: string }) => g.id === gameId ? updatedGame : g)
+				console.log('allGames', allGames)
+				return {
+					allGames: updatedGames,
 				}
 			})
 		}

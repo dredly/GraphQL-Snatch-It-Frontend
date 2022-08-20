@@ -13,6 +13,8 @@ const Game = (props: GameInfo) => {
 	const joinGame = async () => {
 		await join({variables: {playerId: currentPlayerId, gameId: props.id}})
 	}
+
+	const allPlayersReady: boolean = props.players.filter(p => p.ready).length === props.players.length
 	
 	return (
 		<div>
@@ -26,6 +28,12 @@ const Game = (props: GameInfo) => {
 				? null
 				: <button onClick={joinGame}>Join</button>
 			}
+			<div>
+				{currentPlayerId === props.players[0].id
+					? <button disabled={!allPlayersReady}>Start game</button>
+					: null
+				}
+			</div>
 		</div>
 	)
 }

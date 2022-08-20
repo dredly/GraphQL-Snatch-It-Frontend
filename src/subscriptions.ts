@@ -27,3 +27,17 @@ export const PLAYER_JOINED = gql`
 		}
 	}
 `
+
+export const PLAYER_READY = gql`
+	subscription {
+		playerReady {
+			id
+			started
+			players {
+				id
+				name
+				ready
+			}
+		}
+	}
+`

@@ -36,3 +36,17 @@ export const JOIN_GAME = gql`
 		}
 	}
 `
+
+export const DECLARE_READINESS = gql`
+	mutation declareReadiness($playerId: ID!) {
+		declareReadiness(playerID: $playerId) {
+			id
+    		started
+    		players {
+      			id
+      			name
+				ready
+    		}
+		}
+	}
+`
