@@ -41,3 +41,6 @@ export const PLAYER_READY = gql`
 		}
 	}
 `
+
+export const GAME_STARTED = gql`
+`
