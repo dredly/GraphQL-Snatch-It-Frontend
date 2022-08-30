@@ -43,4 +43,15 @@ export const PLAYER_READY = gql`
 `
 
 export const GAME_STARTED = gql`
+	subscription {
+		gameStarted {
+			id
+			started
+			players {
+				id
+				name
+				ready
+			}
+		}
+	}
 `

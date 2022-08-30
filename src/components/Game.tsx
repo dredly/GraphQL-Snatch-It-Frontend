@@ -3,15 +3,20 @@ import { useContext } from "react"
 import { UserContext } from ".."
 import PlayerInGame from "./PlayerInGame"
 import { useMutation } from "@apollo/client"
-import { JOIN_GAME } from "../mutations"
+import { JOIN_GAME, START_GAME } from "../mutations"
 
 const Game = (props: GameInfo) => {
 	const currentPlayerId = useContext(UserContext)
 
 	const [join] = useMutation(JOIN_GAME)
+	const [start] = useMutation(START_GAME)
 
 	const joinGame = async () => {
 		await join({variables: {playerId: currentPlayerId, gameId: props.id}})
+	}
+
+	const startGame = async () => {
+		await start({variables: {gameId: props.id}})
 	}
 
 	const allPlayersReady: boolean = props.players.filter(p => p.ready).length === props.players.length
@@ -30,7 +35,7 @@ const Game = (props: GameInfo) => {
 			}
 			<div>
 				{currentPlayerId === props.players[0].id
-					? <button disabled={!allPlayersReady}>Start game</button>
+					? <button disabled={!allPlayersReady} onClick={startGame}>Start game</button>
 					: null
 				}
 			</div>

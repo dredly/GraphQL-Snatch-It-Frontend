@@ -1,6 +1,6 @@
 import { useState } from "react";
-import JoinForm from "./components/JoinForm";
-import Lobby from "./components/Lobby";
+import Welcome from "./pages/Welcome";
+import Lobby from "./pages/Lobby";
 import { UserContext } from ".";
 
 // Next time: store currentPlayer by ID instead of by name
@@ -12,7 +12,7 @@ const App = () => {
         ? <div>
           <Lobby />
         </div>
-        : <JoinForm setCurrentPlayer={setCurrentPlayer}/> 
+        : <Welcome setCurrentPlayer={setCurrentPlayer}/> 
       } 
     </UserContext.Provider>
   );

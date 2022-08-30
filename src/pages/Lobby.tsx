@@ -3,7 +3,7 @@ import { ALL_GAMES } from "../queries"
 import { CREATE_GAME } from "../mutations"
 import { GAME_ADDED, PLAYER_JOINED, PLAYER_READY } from "../subscriptions"
 import { GameInfo } from "../types"
-import Game from "./Game"
+import Game from "../components/Game"
 import { useState, useContext } from "react"
 import { UserContext } from ".."
 

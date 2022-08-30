@@ -50,3 +50,17 @@ export const DECLARE_READINESS = gql`
 		}
 	}
 `
+
+export const START_GAME = gql`
+	mutation startGame($gameId: ID!) {
+		startGame(gameID: $gameId) {
+			id
+    		started
+    		players {
+      			id
+      			name
+				ready
+    		}
+		}
+	}
+`
