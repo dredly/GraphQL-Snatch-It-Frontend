@@ -1,0 +1,3 @@
+- [ ] Implement Start game functionality
+- [ ] Prevent people from going to lobby url if they have not first entered a name
+- [ ] Implement flip letter functionality

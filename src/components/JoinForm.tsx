@@ -1,8 +1,10 @@
 import { useState } from "react"
 import { useMutation } from "@apollo/client"
 import { CREATE_PLAYER } from "../mutations"
+import { useNavigate } from "react-router-dom"
 
 const JoinForm = ({setCurrentPlayer}: {setCurrentPlayer: React.Dispatch<React.SetStateAction<string>>}) => {
+	const navigate = useNavigate()
 	const [playerName, setPlayerName] = useState('')
 	const [join] = useMutation(CREATE_PLAYER)
 	
@@ -12,6 +14,7 @@ const JoinForm = ({setCurrentPlayer}: {setCurrentPlayer: React.Dispatch<React.Se
 		const { data } = await join({variables: {name: playerName}})
 		setCurrentPlayer(data.createPlayer.id)
 		setPlayerName('')
+		navigate('/lobby')
 	}
 
 	return (

@@ -1,13 +1,15 @@
 import { useMutation, useQuery, useSubscription, useApolloClient } from "@apollo/client"
 import { ALL_GAMES } from "../queries"
 import { CREATE_GAME } from "../mutations"
-import { GAME_ADDED, PLAYER_JOINED, PLAYER_READY } from "../subscriptions"
+import { GAME_ADDED, PLAYER_JOINED, PLAYER_READY, GAME_STARTED } from "../subscriptions"
 import { GameInfo } from "../types"
 import Game from "../components/Game"
 import { useState, useContext } from "react"
+import { useNavigate } from "react-router-dom"
 import { UserContext } from ".."
 
 const Lobby = () => {
+	const navigate = useNavigate()
 	const client = useApolloClient()
 	const [inGame, setInGame] =  useState(false)
 	const currentPlayerId = useContext(UserContext)
@@ -47,6 +49,13 @@ const Lobby = () => {
 					allGames: updatedGames,
 				}
 			})
+		}
+	})
+
+	useSubscription(GAME_STARTED, {
+		onSubscriptionData: ({ subscriptionData }) => {
+			const updatedGame = subscriptionData.data.gameStarted
+			navigate(`/game/${updatedGame.id}`)
 		}
 	})
 
