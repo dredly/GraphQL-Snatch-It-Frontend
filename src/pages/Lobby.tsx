@@ -74,6 +74,14 @@ const Lobby = () => {
 		addGame({variables: {playerId: currentPlayerId}})
 	}
 
+	if (!currentPlayerId)  {
+		return (
+			<div>
+				Go enter your name pls
+			</div>
+		)
+	}
+
 	return (
 		<div>
 			<h1>{games.length} games currently open</h1>

@@ -1,3 +1,4 @@
-- [ ] Implement Start game functionality
-- [ ] Prevent people from going to lobby url if they have not first entered a name
+- [x] Implement Start game functionality
+- [x] Prevent people from going to lobby url if they have not first entered a name
 - [ ] Implement flip letter functionality
+- [ ] Implement proper redirect page thingy
