@@ -67,7 +67,11 @@ const Lobby = () => {
 		return <div>...loading</div>;
 	}
 
-	const games = queryResult.data.allGames as GameInfo[];
+	if (queryResult.error) {
+		return <div>Query error</div>
+	}
+
+	const games: GameInfo[] = queryResult.data.allGames;
 
 	const handleNewGame = () => {
 		setInGame(true)

@@ -13,3 +13,22 @@ export const ALL_GAMES = gql`
   		}
   	}
 `;
+
+export const GAME_BY_ID = gql`
+	query gameById($gameId: ID!) {
+		gameById(gameID: $gameId) {
+			id
+    		started
+    		players {
+      			id
+      			name
+				ready
+    		}
+			letters {
+				id
+				value
+				exposed
+			}
+		}
+	}
+`

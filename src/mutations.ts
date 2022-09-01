@@ -61,6 +61,11 @@ export const START_GAME = gql`
       			name
 				ready
     		}
+			letters {
+				id
+				value
+				exposed
+			}
 		}
 	}
 `
