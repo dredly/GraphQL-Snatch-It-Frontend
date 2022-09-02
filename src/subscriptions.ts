@@ -60,3 +60,22 @@ export const GAME_STARTED = gql`
 		}
 	}
 `
+
+export const LETTER_FLIPPED = gql`
+	subscription {
+		gameStarted {
+			id
+			started
+			players {
+				id
+				name
+				ready
+			}
+			letters {
+				id
+				value
+				exposed
+			}
+		}
+	}
+`

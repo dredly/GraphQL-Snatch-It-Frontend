@@ -8,3 +8,13 @@ export interface GameInfo {
 	players: Player[]
 	id: string
 }
+
+export interface Letter {
+	id: string
+	value: string
+	exposed: boolean
+}
+
+export interface Game extends GameInfo {
+	letters: Letter[]
+}
