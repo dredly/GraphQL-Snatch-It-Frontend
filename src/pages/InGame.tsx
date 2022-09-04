@@ -1,10 +1,13 @@
-import { useQuery, useMutation } from "@apollo/client"
+import { useQuery, useMutation, useSubscription, useApolloClient } from "@apollo/client"
 import { useParams } from "react-router-dom"
 import { FLIP_LETTER } from "../mutations"
 import { GAME_BY_ID } from "../queries"
+import { LETTER_FLIPPED } from "../subscriptions"
 import { Game } from "../types"
 
 const InGame = () => {
+    const client = useApolloClient()
+
     const gameId = useParams().id
     const queryResult = useQuery(GAME_BY_ID, {
         variables: {
@@ -13,6 +16,17 @@ const InGame = () => {
     })
 
     const [flip] = useMutation(FLIP_LETTER)
+
+    useSubscription(LETTER_FLIPPED, {
+        onSubscriptionData: ({ subscriptionData }) => {
+			const updatedGame = subscriptionData.data.letterFlipped
+			client.cache.updateQuery({query: GAME_BY_ID}, () => {
+				return {
+					gameById: updatedGame,
+				}
+			})
+		}
+    })
 
     if (queryResult.loading) {
 		return <div>...loading</div>;

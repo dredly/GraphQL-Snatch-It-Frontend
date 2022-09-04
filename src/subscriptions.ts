@@ -63,7 +63,7 @@ export const GAME_STARTED = gql`
 
 export const LETTER_FLIPPED = gql`
 	subscription {
-		gameStarted {
+		letterFlipped {
 			id
 			started
 			players {
