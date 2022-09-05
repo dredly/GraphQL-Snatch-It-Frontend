@@ -1,15 +1,13 @@
 import { useQuery, useMutation, useSubscription, useApolloClient } from "@apollo/client"
-import { useContext } from "react"
-import { UserContext } from ".."
 import { useParams } from "react-router-dom"
 import { FLIP_LETTER } from "../mutations"
 import { GAME_BY_ID } from "../queries"
 import { LETTER_FLIPPED } from "../subscriptions"
 import { Game } from "../types"
+import PlayerInLobbyGame from "../components/PlayerInLobbyGame"
 
-const InGame = () => {
+const GamePage = () => {
     const client = useApolloClient()
-    const currentPlayerId = useContext(UserContext)
 
     const gameId = useParams().id
     const queryResult = useQuery(GAME_BY_ID, {
@@ -51,9 +49,7 @@ const InGame = () => {
         <div>
             {game.players.map(p => {
                 return (
-                    <div key={p.id}>
-                        <h3>{p.name} {p.id === currentPlayerId ? '<--- ME!' : null}</h3>
-                    </div>
+                    <PlayerInLobbyGame player={p} key={p.id} />
                 )
             })}
             <button onClick={handleFlip}>Flip letter</button>
@@ -67,4 +63,4 @@ const InGame = () => {
     )
 }
 
-export default InGame
+export default GamePage

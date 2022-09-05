@@ -2,7 +2,7 @@ import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Welcome from "./pages/Welcome";
 import Lobby from "./pages/Lobby";
-import InGame from "./pages/InGame"
+import GamePage from "./pages/GamePage"
 import { UserContext } from ".";
 
 // Next time: store currentPlayer by ID instead of by name
@@ -13,7 +13,7 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/lobby" element={<Lobby/>}/>
-          <Route path="/game/:id" element={<InGame />}/>
+          <Route path="/game/:id" element={<GamePage />}/>
           <Route path="/" element={<Welcome setCurrentPlayer={setCurrentPlayer}/>}/> 
         </Routes> 
       </BrowserRouter>

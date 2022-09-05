@@ -4,7 +4,7 @@ import { UserContext } from ".."
 import { useMutation } from "@apollo/client";
 import { DECLARE_READINESS } from "../mutations";
 
-const PlayerInGame = ({player}: {player: Player}) => {
+const PlayerInLobbyGame = ({player}: {player: Player}) => {
 	const currentPlayerId = useContext(UserContext)
 
 	const [toggleReady] = useMutation(DECLARE_READINESS)
@@ -14,6 +14,7 @@ const PlayerInGame = ({player}: {player: Player}) => {
 			playerId: currentPlayerId
 		}})
 	}
+
 
 	return (
 		<div>
@@ -28,4 +29,4 @@ const PlayerInGame = ({player}: {player: Player}) => {
 	)
 }
 
-export default PlayerInGame;
+export default PlayerInLobbyGame;

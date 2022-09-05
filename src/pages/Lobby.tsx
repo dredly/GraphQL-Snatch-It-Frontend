@@ -3,7 +3,7 @@ import { ALL_GAMES } from "../queries"
 import { CREATE_GAME } from "../mutations"
 import { GAME_ADDED, PLAYER_JOINED, PLAYER_READY, GAME_STARTED } from "../subscriptions"
 import { GameInfo } from "../types"
-import Game from "../components/Game"
+import GameInLobby from "../components/GameInLobby"
 import { useState, useContext } from "react"
 import { useNavigate } from "react-router-dom"
 import { UserContext } from ".."
@@ -90,7 +90,7 @@ const Lobby = () => {
 		<div>
 			<h1>{games.length} games currently open</h1>
 			{games.map(g => (
-				<Game players={g.players} id={g.id} key={g.id} />
+				<GameInLobby players={g.players} id={g.id} key={g.id} />
 			))}
 			{inGame
 				? null

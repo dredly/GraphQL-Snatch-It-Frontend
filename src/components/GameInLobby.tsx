@@ -2,11 +2,11 @@ import { GameInfo } from "../types"
 import { useContext } from "react"
 import { useNavigate } from "react-router-dom"
 import { UserContext } from ".."
-import PlayerInGame from "./PlayerInGame"
+import PlayerInLobbyGame from "./PlayerInLobbyGame"
 import { useMutation } from "@apollo/client"
 import { JOIN_GAME, START_GAME } from "../mutations"
 
-const Game = (props: GameInfo) => {
+const GameInLobby = (props: GameInfo) => {
 	const navigate = useNavigate()
 
 	const currentPlayerId = useContext(UserContext)
@@ -31,7 +31,7 @@ const Game = (props: GameInfo) => {
 			<p>Not yet started</p>
 			<h3>Players</h3>
 			{props.players.map(p => (
-				<PlayerInGame player={p} key={p.id}/>
+				<PlayerInLobbyGame player={p} key={p.id}/>
 			))}
 			{props.players.map(p => p.id).includes(currentPlayerId)
 				? null
@@ -47,4 +47,4 @@ const Game = (props: GameInfo) => {
 	)
 }
 
-export default Game
+export default GameInLobby
