@@ -69,22 +69,3 @@ export const START_GAME = gql`
 		}
 	}
 `
-
-export const FLIP_LETTER = gql`
-	mutation flipLetter($gameId: ID!) {
-		flipLetter(gameID: $gameId) {
-			id
-			started
-			players {
-				id
-				name
-				ready
-			}
-			letters {
-				id
-				value
-				exposed
-			}
-		}
-	}
-`

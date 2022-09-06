@@ -1,8 +1,7 @@
-import { useQuery, useMutation, useSubscription, useApolloClient } from "@apollo/client"
+import { useQuery, useSubscription, useApolloClient } from "@apollo/client"
 import { useParams } from "react-router-dom"
-import { FLIP_LETTER } from "../mutations"
 import { GAME_BY_ID } from "../queries"
-import { LETTER_FLIPPED, PLAYER_READY } from "../subscriptions"
+import { LETTER_FLIPPED, PLAYER_READY_TO_FLIP } from "../subscriptions"
 import { Game } from "../types"
 import PlayerInGame from "../components/PlayerInGame"
 
@@ -16,8 +15,6 @@ const GamePage = () => {
         }
     })
 
-    const [flip] = useMutation(FLIP_LETTER)
-
     useSubscription(LETTER_FLIPPED, {
         onSubscriptionData: ({ subscriptionData }) => {
 			const updatedGame = subscriptionData.data.letterFlipped
@@ -29,7 +26,7 @@ const GamePage = () => {
 		}
     })
 
-    useSubscription(PLAYER_READY, {
+    useSubscription(PLAYER_READY_TO_FLIP, {
         onSubscriptionData: ({ subscriptionData }) => {
 			const updatedGame = subscriptionData.data.playerReady
 			client.cache.updateQuery({query: GAME_BY_ID}, () => {
@@ -51,10 +48,6 @@ const GamePage = () => {
     const game: Game = queryResult.data.gameById;
     const flippedLetters = game.letters.filter(lett => lett.exposed)
 
-    const handleFlip = () => {
-        console.log('Flipping')
-        flip({variables: {gameId}})
-    }
 
     return (
         <div>
@@ -63,7 +56,6 @@ const GamePage = () => {
                     <PlayerInGame player={p} key={p.id} />
                 )
             })}
-            <button onClick={handleFlip}>Flip letter</button>
             <h3>Letter Pool</h3>
             {flippedLetters.map(fl => {
                 return (

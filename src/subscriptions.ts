@@ -79,3 +79,22 @@ export const LETTER_FLIPPED = gql`
 		}
 	}
 `
+
+export const PLAYER_READY_TO_FLIP = gql`
+	subscription {
+		playerReady {
+			id
+			started
+			players {
+				id
+				name
+				ready
+			}
+			letters {
+				id
+				value
+				exposed
+			}
+		}
+	}
+`

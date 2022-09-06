@@ -1,4 +1,5 @@
 - [x] Implement Start game functionality
 - [x] Prevent people from going to lobby url if they have not first entered a name
-- [ ] Implement flip letter functionality
+- [x] Implement separate subscription for player ready in an ongoing game
+- [x] Implement flip letter functionality
 - [ ] Implement proper redirect page thingy
