@@ -7,6 +7,7 @@ import GameInLobby from "../components/GameInLobby"
 import { useState, useContext } from "react"
 import { useNavigate } from "react-router-dom"
 import { UserContext } from ".."
+import RedirectPage from "./RedirectPage"
 
 const Lobby = () => {
 	const navigate = useNavigate()
@@ -79,11 +80,7 @@ const Lobby = () => {
 	}
 
 	if (!currentPlayerId)  {
-		return (
-			<div>
-				Go enter your name pls
-			</div>
-		)
+		return <RedirectPage />
 	}
 
 	return (
