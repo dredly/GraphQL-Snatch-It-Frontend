@@ -62,9 +62,14 @@ export const START_GAME = gql`
 				ready
     		}
 			letters {
-				id
-				value
-				exposed
+				unflipped {
+					id
+					value
+				}
+				flipped {
+					id
+					value
+				}
 			}
 		}
 	}

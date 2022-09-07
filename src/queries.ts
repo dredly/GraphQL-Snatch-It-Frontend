@@ -25,9 +25,14 @@ export const GAME_BY_ID = gql`
 				ready
     		}
 			letters {
-				id
-				value
-				exposed
+				unflipped {
+					id
+					value
+				}
+				flipped {
+					id
+					value
+				}
 			}
 		}
 	}

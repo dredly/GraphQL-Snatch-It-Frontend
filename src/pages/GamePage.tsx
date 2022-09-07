@@ -46,8 +46,7 @@ const GamePage = () => {
 	}
     
     const game: Game = queryResult.data.gameById;
-    const flippedLetters = game.letters.filter(lett => lett.exposed)
-
+    console.log('game letters', game.letters.flipped)
 
     return (
         <div>
@@ -57,7 +56,7 @@ const GamePage = () => {
                 )
             })}
             <h3>Letter Pool</h3>
-            {flippedLetters.map(fl => {
+            {game.letters.flipped.map(fl => {
                 return (
                     <span key={fl.id}>{fl.value}</span>
                 )

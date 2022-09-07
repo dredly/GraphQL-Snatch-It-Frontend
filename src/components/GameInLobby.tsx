@@ -19,7 +19,9 @@ const GameInLobby = (props: GameInfo) => {
 	}
 
 	const startGame = async () => {
+		console.log('About to start game')
 		await start({variables: {gameId: props.id}})
+		console.log('Started game')
 		navigate(`/game/${props.id}`)
 	}
 

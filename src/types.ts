@@ -12,9 +12,13 @@ export interface GameInfo {
 export interface Letter {
 	id: string
 	value: string
-	exposed: boolean
 }
 
+export interface Letters {
+	unflipped: Letter[]
+	flipped: Letter[]
+  }
+
 export interface Game extends GameInfo {
-	letters: Letter[]
+	letters: Letters
 }
