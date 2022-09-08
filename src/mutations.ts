@@ -74,3 +74,27 @@ export const START_GAME = gql`
 		}
 	}
 `
+
+export const WRITE_WORD = gql`
+	mutation writeWord($playerId: ID!, $gameId: ID!, $letterIds: [ID!]!) {
+		writeWord(playerID: $playerId, gameID: $gameId, letterIDS: $letterIds) {
+			id
+    		started
+    		players {
+      			id
+      			name
+				ready
+    		}
+			letters {
+				unflipped {
+					id
+					value
+				}
+				flipped {
+					id
+					value
+				}
+			}
+		}
+	}
+`

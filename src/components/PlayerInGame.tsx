@@ -1,10 +1,11 @@
-import { Player } from "../types";
-import { useContext } from "react"
+import { PlayerInfo } from "../types";
+import { useContext, SyntheticEvent } from "react"
 import { useMutation } from "@apollo/client";
 import { UserContext } from ".."
 import { DECLARE_READINESS } from "../mutations";
+import WriteWordForm from "./WriteWordForm";
 
-const PlayerInGame = ({player}: {player: Player}) => {
+const PlayerInGame = ({player}: {player: PlayerInfo}) => {
     const currentPlayerId = useContext(UserContext)
 
     const [toggleReady] = useMutation(DECLARE_READINESS)
@@ -15,6 +16,14 @@ const PlayerInGame = ({player}: {player: Player}) => {
 		}})
 	}
 
+	const submitWord = (evt: SyntheticEvent) => {
+		evt.preventDefault();
+		const target = evt.target as typeof evt.target & {
+			wordInput: {value: string}
+		}
+		console.log('Written word', target.wordInput.value)
+	}
+
     return (
         <div>
             {player.name} - {player.ready ? 'READY' : 'NOT READY'}
@@ -22,6 +31,10 @@ const PlayerInGame = ({player}: {player: Player}) => {
 				? <button onClick={toggleReadiness}>
                     Ready to flip
 				</button> 
+				: null
+			}
+			{player.id === currentPlayerId
+				? <WriteWordForm onSubmit={submitWord}/>
 				: null
 			}
         </div>
