@@ -52,7 +52,7 @@ const GamePage = () => {
         <div>
             {game.players.map(p => {
                 return (
-                    <PlayerInGame player={p} key={p.id} />
+                    <PlayerInGame player={p} game={game} key={p.id} />
                 )
             })}
             <h3>Letter Pool</h3>
