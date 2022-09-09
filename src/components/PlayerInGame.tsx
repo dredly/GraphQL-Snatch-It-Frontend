@@ -4,6 +4,7 @@ import { useMutation } from "@apollo/client";
 import { UserContext } from ".."
 import { DECLARE_READINESS } from "../mutations";
 import WriteWordForm from "./WriteWordForm";
+import { scrabbleDict } from "../utils/dictSet";
 
 const PlayerInGame = ({player, game}: {player: PlayerInfo, game: Game}) => {
     const currentPlayerId = useContext(UserContext)
@@ -31,13 +32,17 @@ const PlayerInGame = ({player, game}: {player: PlayerInfo, game: Game}) => {
 		return true;
 	}
 
+	const isWord = (wordAttempt: string, dictSet: Set<string>) => {
+		return dictSet.has(wordAttempt.toUpperCase());
+	}
+
 	const submitWord = (evt: SyntheticEvent) => {
 		evt.preventDefault();
 		const target = evt.target as typeof evt.target & {
 			wordInput: {value: string}
 		}
-		console.log('Written word', target.wordInput.value)
-		if (lettersAvailable(target.wordInput.value, game.letters.flipped)) {
+		const wordAttempt = target.wordInput.value
+		if (lettersAvailable(wordAttempt, game.letters.flipped) && isWord(wordAttempt, scrabbleDict)) {
 			console.log('Valid!')
 			target.wordInput.value = ''
 		} else {

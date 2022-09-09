@@ -6,4 +6,5 @@
 - [ ] Implement writing words
     - [x] Add form for player
     - [x] Check that letters are available
-    - [ ] Check that word is valid
+    - [x] Check that word is valid
+    - [ ] Refactor checking logic into utils
