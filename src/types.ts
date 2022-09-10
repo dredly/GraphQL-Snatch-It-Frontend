@@ -24,10 +24,11 @@ export interface Letters {
 	flipped: Letter[]
   }
 
-export interface Game extends GameInfo {
-	letters: Letters
-}
-
 export interface Player extends PlayerInfo {
 	words: Word[]
+}
+
+export interface Game extends GameInfo {
+	players: Player[]
+	letters: Letters
 }

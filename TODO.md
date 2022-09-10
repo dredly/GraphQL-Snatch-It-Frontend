@@ -3,8 +3,13 @@
 - [x] Implement separate subscription for player ready in an ongoing game
 - [x] Implement flip letter functionality
 - [x] Implement proper redirect page thingy
-- [ ] Implement writing words
+- [x] Implement basic writing words
     - [x] Add form for player
     - [x] Check that letters are available
     - [x] Check that word is valid
     - [x] Refactor checking logic into utils
+    - [x] Add subscription for writing words
+- [ ] Refactor subscriptions to use general game update subscription
+- [ ] Start using fragments
+- [ ] Show that games are in progress in the lobby and cannot be joined
+- [ ] Implement snatching words

@@ -65,6 +65,13 @@ export const LETTER_FLIPPED = gql`
 				id
 				name
 				ready
+				words {
+					id
+					letters {
+						id
+						value
+					}
+				}
 			}
 			letters {
 				unflipped {
@@ -89,6 +96,13 @@ export const PLAYER_READY_TO_FLIP = gql`
 				id
 				name
 				ready
+				words {
+					id
+					letters {
+						id
+						value
+					}
+				}
 			}
 			letters {
 				unflipped {
@@ -102,4 +116,35 @@ export const PLAYER_READY_TO_FLIP = gql`
 			}
 		}
 	}
+`
+
+export const WORD_WRITTEN = gql`
+subscription {
+	wordWritten {
+		id
+		started
+		players {
+			id
+			name
+			ready
+			words {
+				id
+				letters {
+					id
+					value
+				}
+			}
+		}
+		letters {
+			unflipped {
+				id
+				value
+			}
+			flipped {
+				id
+				value
+			}
+		}
+	}
+}
 `

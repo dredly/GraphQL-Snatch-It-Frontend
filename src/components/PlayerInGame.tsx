@@ -1,4 +1,4 @@
-import { PlayerInfo, Game } from "../types";
+import { Player, Game } from "../types";
 import { useContext, SyntheticEvent } from "react"
 import { useMutation } from "@apollo/client";
 import { UserContext } from ".."
@@ -6,8 +6,9 @@ import { DECLARE_READINESS, WRITE_WORD } from "../mutations";
 import WriteWordForm from "./WriteWordForm";
 import { scrabbleDict } from "../utils/dictSet";
 import { lettersAvailable, isWord } from "../utils/wordChecking";
+import { getWordString } from "../utils/helpers";
 
-const PlayerInGame = ({player, game}: {player: PlayerInfo, game: Game}) => {
+const PlayerInGame = ({player, game}: {player: Player, game: Game}) => {
     const currentPlayerId = useContext(UserContext)
 
     const [toggleReady] = useMutation(DECLARE_READINESS)
@@ -50,6 +51,12 @@ const PlayerInGame = ({player, game}: {player: PlayerInfo, game: Game}) => {
 				? <WriteWordForm onSubmit={submitWord}/>
 				: null
 			}
+			<h4>Words</h4>
+			<ul>
+				{player.words.map(word => (
+					<li key={word.id}>{getWordString(word)}</li>
+				))}
+			</ul>
         </div>
     )
 }

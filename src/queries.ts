@@ -23,6 +23,13 @@ export const GAME_BY_ID = gql`
       			id
       			name
 				ready
+				words {
+					id
+					letters {
+						id
+						value
+					}
+				}
     		}
 			letters {
 				unflipped {
