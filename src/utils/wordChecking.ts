@@ -16,16 +16,20 @@ export const isWord = (wordAttempt: string, dictSet: Set<string>) => {
     return dictSet.has(wordAttempt.toUpperCase());
 }
 
-export const getLettersForWord = (word: string, letterPool: Letter[]) => {
-    const wordCharArray = word.toLowerCase().split('')
-    const availableLetters = [...letterPool]
-    const lettersForWord = []
-    for (const char of wordCharArray) {
-        const letter = availableLetters.find(lett => lett.value.toLowerCase() === char);
-        if (!letter) {
-            throw new Error('Letter not available')
-        }
-        availableLetters.splice(availableLetters.indexOf(letter), 1)
-        lettersForWord.push(letter)
-    }
-}
+// export const getLettersForWord = (word: string, letterPool: Letter[]) => {
+//     const wordCharArray = word.toLowerCase().split('')
+//     const availableLetters = [...letterPool]
+//     const lettersForWord = []
+//     for (const char of wordCharArray) {
+//         const letter = availableLetters.find(lett => lett.value.toLowerCase() === char);
+//         if (!letter) {
+//             throw new Error('Letter not available')
+//         }
+//         availableLetters.splice(availableLetters.indexOf(letter), 1)
+//         lettersForWord.push(letter)
+//     }
+//     return {
+//         word: lettersForWord,
+//         remaining: availableLetters
+//     }
+// }

@@ -76,8 +76,8 @@ export const START_GAME = gql`
 `
 
 export const WRITE_WORD = gql`
-	mutation writeWord($playerId: ID!, $gameId: ID!, $letterIds: [ID!]!) {
-		writeWord(playerID: $playerId, gameID: $gameId, letterIDS: $letterIds) {
+	mutation writeWord($playerId: ID!, $gameId: ID!, $word: String!) {
+		writeWord(playerID: $playerId, gameID: $gameId, word: $word) {
 			id
     		started
     		players {

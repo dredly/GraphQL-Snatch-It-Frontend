@@ -30,7 +30,7 @@ const PlayerInGame = ({player, game}: {player: PlayerInfo, game: Game}) => {
 			writeWord({variables: {
 				playerId: currentPlayerId,
 				gameId: game.id,
-				letterIds: []
+				word: wordAttempt,
 			}})
 		} else {
 			console.log('Invalid')
