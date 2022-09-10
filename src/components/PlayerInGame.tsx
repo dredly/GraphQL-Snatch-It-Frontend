@@ -1,10 +1,11 @@
-import { PlayerInfo, Game, Letter } from "../types";
+import { PlayerInfo, Game } from "../types";
 import { useContext, SyntheticEvent } from "react"
 import { useMutation } from "@apollo/client";
 import { UserContext } from ".."
 import { DECLARE_READINESS } from "../mutations";
 import WriteWordForm from "./WriteWordForm";
 import { scrabbleDict } from "../utils/dictSet";
+import { lettersAvailable, isWord } from "../utils/wordChecking";
 
 const PlayerInGame = ({player, game}: {player: PlayerInfo, game: Game}) => {
     const currentPlayerId = useContext(UserContext)
@@ -15,25 +16,6 @@ const PlayerInGame = ({player, game}: {player: PlayerInfo, game: Game}) => {
 		toggleReady({variables: {
 			playerId: currentPlayerId
 		}})
-	}
-
-	const count = (arr: string[], val: string) => {
-		return arr.filter(item => item === val).length;
-	}
-
-	const lettersAvailable = (wordAttempt: string, letterPool: Letter[]) => {
-		const wordCharArray = wordAttempt.toLowerCase().split('')
-		const availableCharArray = letterPool.map(lett => lett.value.toLowerCase())
-		for (const lett of wordCharArray) {
-			if (count(wordCharArray, lett) > count(availableCharArray, lett)) {
-				return false
-			}
-		}
-		return true;
-	}
-
-	const isWord = (wordAttempt: string, dictSet: Set<string>) => {
-		return dictSet.has(wordAttempt.toUpperCase());
 	}
 
 	const submitWord = (evt: SyntheticEvent) => {

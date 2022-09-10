@@ -7,4 +7,4 @@
     - [x] Add form for player
     - [x] Check that letters are available
     - [x] Check that word is valid
-    - [ ] Refactor checking logic into utils
+    - [x] Refactor checking logic into utils
