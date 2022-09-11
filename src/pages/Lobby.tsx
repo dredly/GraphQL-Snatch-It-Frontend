@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useSubscription, useApolloClient } from "@apollo/client"
 import { ALL_GAMES } from "../queries"
 import { CREATE_GAME } from "../mutations"
-import { GAME_ADDED, PLAYER_JOINED, PLAYER_READY, GAME_STARTED } from "../subscriptions"
+import { GAME_ADDED, GAME_INFO_UPDATED, GAME_STARTED } from "../subscriptions"
 import { GameInfo } from "../types"
 import GameInLobby from "../components/GameInLobby"
 import { useState, useContext } from "react"
@@ -17,7 +17,9 @@ const Lobby = () => {
 
 	useSubscription(GAME_ADDED, {
 		onSubscriptionData: ({ subscriptionData }) => {
+			console.log('Got subscription data for adding game')
 			const addedGame = subscriptionData.data.gameAdded
+			console.log()
 			client.cache.updateQuery({query: ALL_GAMES}, ({ allGames }) => {
 				return {
 					allGames: allGames.concat(addedGame),
@@ -26,28 +28,13 @@ const Lobby = () => {
 		}
 	})
 
-	useSubscription(PLAYER_JOINED, {
+	useSubscription(GAME_INFO_UPDATED, {
 		onSubscriptionData: ({ subscriptionData }) => {
-			const updatedGame = subscriptionData.data.playerJoined
+			const updatedGame = subscriptionData.data.gameUpdated
 			const gameId = updatedGame.id
 			client.cache.updateQuery({query: ALL_GAMES}, ({ allGames }) => {
 				return {
 					allGames: allGames.map((g: { id: string }) => g.id === gameId ? updatedGame : g),
-				}
-			})
-		}
-	})
-
-	useSubscription(PLAYER_READY, {
-		onSubscriptionData: ({ subscriptionData }) => {
-			const updatedGame = subscriptionData.data.playerReady
-			console.log("updatedGame", updatedGame)
-			const gameId = updatedGame.id
-			client.cache.updateQuery({query: ALL_GAMES}, ({ allGames }) => {
-				const updatedGames = allGames.map((g: { id: string }) => g.id === gameId ? updatedGame : g)
-				console.log('allGames', allGames)
-				return {
-					allGames: updatedGames,
 				}
 			})
 		}

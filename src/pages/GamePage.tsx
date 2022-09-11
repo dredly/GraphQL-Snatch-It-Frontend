@@ -1,7 +1,7 @@
 import { useQuery, useSubscription, useApolloClient } from "@apollo/client"
 import { useParams } from "react-router-dom"
 import { GAME_BY_ID } from "../queries"
-import { LETTER_FLIPPED, PLAYER_READY_TO_FLIP, WORD_WRITTEN } from "../subscriptions"
+import { GAME_UPDATED } from "../subscriptions"
 import { Game } from "../types"
 import PlayerInGame from "../components/PlayerInGame"
 
@@ -15,31 +15,9 @@ const GamePage = () => {
         }
     })
 
-    useSubscription(LETTER_FLIPPED, {
+    useSubscription(GAME_UPDATED, {
         onSubscriptionData: ({ subscriptionData }) => {
-			const updatedGame = subscriptionData.data.letterFlipped
-			client.cache.updateQuery({query: GAME_BY_ID}, () => {
-				return {
-					gameById: updatedGame,
-				}
-			})
-		}
-    })
-
-    useSubscription(PLAYER_READY_TO_FLIP, {
-        onSubscriptionData: ({ subscriptionData }) => {
-			const updatedGame = subscriptionData.data.playerReady
-			client.cache.updateQuery({query: GAME_BY_ID}, () => {
-				return {
-					gameById: updatedGame,
-				}
-			})
-		}
-    })
-
-    useSubscription(WORD_WRITTEN, {
-        onSubscriptionData: ({ subscriptionData }) => {
-			const updatedGame = subscriptionData.data.wordWritten
+			const updatedGame = subscriptionData.data.gameUpdated
 			client.cache.updateQuery({query: GAME_BY_ID}, () => {
 				return {
 					gameById: updatedGame,

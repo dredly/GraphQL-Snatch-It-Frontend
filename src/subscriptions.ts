@@ -14,23 +14,9 @@ export const GAME_ADDED = gql`
 	}
 `
 
-export const PLAYER_JOINED = gql`
+export const GAME_INFO_UPDATED = gql`
 	subscription {
-		playerJoined {
-			id
-			started
-			players {
-				id
-				name
-				ready
-			}
-		}
-	}
-`
-
-export const PLAYER_READY = gql`
-	subscription {
-		playerReady {
+		gameUpdated {
 			id
 			started
 			players {
@@ -56,9 +42,9 @@ export const GAME_STARTED = gql`
 	}
 `
 
-export const LETTER_FLIPPED = gql`
+export const GAME_UPDATED = gql`
 	subscription {
-		letterFlipped {
+		gameUpdated {
 			id
 			started
 			players {
@@ -85,66 +71,4 @@ export const LETTER_FLIPPED = gql`
 			}
 		}
 	}
-`
-
-export const PLAYER_READY_TO_FLIP = gql`
-	subscription {
-		playerReady {
-			id
-			started
-			players {
-				id
-				name
-				ready
-				words {
-					id
-					letters {
-						id
-						value
-					}
-				}
-			}
-			letters {
-				unflipped {
-					id
-					value
-				}
-				flipped {
-					id
-					value
-				}
-			}
-		}
-	}
-`
-
-export const WORD_WRITTEN = gql`
-subscription {
-	wordWritten {
-		id
-		started
-		players {
-			id
-			name
-			ready
-			words {
-				id
-				letters {
-					id
-					value
-				}
-			}
-		}
-		letters {
-			unflipped {
-				id
-				value
-			}
-			flipped {
-				id
-				value
-			}
-		}
-	}
-}
 `

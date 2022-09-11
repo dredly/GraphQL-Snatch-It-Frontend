@@ -9,7 +9,7 @@
     - [x] Check that word is valid
     - [x] Refactor checking logic into utils
     - [x] Add subscription for writing words
-- [ ] Refactor subscriptions to use general game update subscription
+- [x] Refactor subscriptions to use general game update subscription
 - [ ] Start using fragments
 - [ ] Show that games are in progress in the lobby and cannot be joined
 - [ ] Implement snatching words
