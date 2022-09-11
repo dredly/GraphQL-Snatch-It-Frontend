@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@apollo/client": "^3.6.9",
+    "@stdlib/nlp-porter-stemmer": "^0.0.7",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
@@ -24,7 +25,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "lint": "eslint --fix \"./src/**/*.{ts,tsx}\"",
-    "test": "react-scripts test",
+    "test": "react-scripts test --verbose",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

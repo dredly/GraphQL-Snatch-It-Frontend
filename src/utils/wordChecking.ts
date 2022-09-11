@@ -1,5 +1,7 @@
-import { Letter } from "../types"
-import { count } from "./helpers"
+import { Letter, Word } from "../types"
+import { count, getLettersAdded, getWordString } from "./helpers"
+import porterStemmer from '@stdlib/nlp-porter-stemmer';
+
 
 export const lettersAvailable = (wordAttempt: string, letterPool: Letter[]) => {
     const wordCharArray = wordAttempt.toLowerCase().split('')
@@ -16,20 +18,9 @@ export const isWord = (wordAttempt: string, dictSet: Set<string>) => {
     return dictSet.has(wordAttempt.toUpperCase());
 }
 
-// export const getLettersForWord = (word: string, letterPool: Letter[]) => {
-//     const wordCharArray = word.toLowerCase().split('')
-//     const availableLetters = [...letterPool]
-//     const lettersForWord = []
-//     for (const char of wordCharArray) {
-//         const letter = availableLetters.find(lett => lett.value.toLowerCase() === char);
-//         if (!letter) {
-//             throw new Error('Letter not available')
-//         }
-//         availableLetters.splice(availableLetters.indexOf(letter), 1)
-//         lettersForWord.push(letter)
-//     }
-//     return {
-//         word: lettersForWord,
-//         remaining: availableLetters
-//     }
-// }
+// Only snatch from one word and basic stemming for now
+export const canSnatch = (wordAttempt: string, snatchFrom: Word, letterPool: Letter[]) => {
+    const lettersAdded = getLettersAdded(snatchFrom, wordAttempt);
+    return lettersAvailable(lettersAdded, letterPool) &&
+        porterStemmer(wordAttempt) !== porterStemmer(getWordString(snatchFrom));
+}
