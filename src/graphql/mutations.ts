@@ -1,5 +1,5 @@
 import { gql } from "@apollo/client";
-import { GAME_IN_LOBBY_DETAILS } from "./fragments";
+import { GAME_IN_LOBBY_DETAILS, GAME_DETAILS } from "./fragments";
 
 export const CREATE_PLAYER = gql`
 	mutation createPlayer($name: String!) {
@@ -37,50 +37,21 @@ export const DECLARE_READINESS = gql`
 	${GAME_IN_LOBBY_DETAILS}
 `
 
+// Might not actually need all this info as it is handled by subscriptions
 export const START_GAME = gql`
 	mutation startGame($gameId: ID!) {
 		startGame(gameID: $gameId) {
-			id
-    		started
-    		players {
-      			id
-      			name
-				ready
-    		}
-			letters {
-				unflipped {
-					id
-					value
-				}
-				flipped {
-					id
-					value
-				}
-			}
+			...GameDetails
 		}
 	}
+	${GAME_DETAILS}
 `
 
 export const WRITE_WORD = gql`
 	mutation writeWord($playerId: ID!, $gameId: ID!, $word: String!) {
 		writeWord(playerID: $playerId, gameID: $gameId, word: $word) {
-			id
-    		started
-    		players {
-      			id
-      			name
-				ready
-    		}
-			letters {
-				unflipped {
-					id
-					value
-				}
-				flipped {
-					id
-					value
-				}
-			}
+			...GameDetails
 		}
 	}
+	${GAME_DETAILS}
 `

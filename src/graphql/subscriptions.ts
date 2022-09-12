@@ -1,5 +1,5 @@
 import { gql } from "@apollo/client";
-import { GAME_IN_LOBBY_DETAILS } from "./fragments";
+import { GAME_IN_LOBBY_DETAILS, GAME_DETAILS } from "./fragments";
 
 export const GAME_ADDED = gql`
 	subscription {
@@ -31,30 +31,8 @@ export const GAME_STARTED = gql`
 export const GAME_UPDATED = gql`
 	subscription {
 		gameUpdated {
-			id
-			started
-			players {
-				id
-				name
-				ready
-				words {
-					id
-					letters {
-						id
-						value
-					}
-				}
-			}
-			letters {
-				unflipped {
-					id
-					value
-				}
-				flipped {
-					id
-					value
-				}
-			}
+			...GameDetails
 		}
 	}
+	${GAME_DETAILS}
 `
