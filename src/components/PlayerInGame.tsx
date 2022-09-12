@@ -1,5 +1,5 @@
 import { Player, Game } from "../types";
-import { useContext, SyntheticEvent } from "react"
+import { useContext, useState, SyntheticEvent } from "react"
 import { useMutation } from "@apollo/client";
 import { UserContext } from ".."
 import { DECLARE_READINESS, WRITE_WORD } from "../graphql/mutations"
@@ -10,6 +10,9 @@ import { getWordString } from "../utils/helpers";
 
 const PlayerInGame = ({player, game}: {player: Player, game: Game}) => {
     const currentPlayerId = useContext(UserContext)
+
+	// Probably need to take this up a level to GamePage component so that can select wordIds from any player
+	const [selectedWordIds, setSelectedWordIds] = useState<string[]>([])
 
     const [toggleReady] = useMutation(DECLARE_READINESS)
 	const [writeWord] = useMutation(WRITE_WORD)
@@ -38,6 +41,14 @@ const PlayerInGame = ({player, game}: {player: Player, game: Game}) => {
 		}
 	}
 
+	const selectWord = (wordId: string) => {
+		setSelectedWordIds(selectedWordIds.concat(wordId));
+	}
+
+	const clearWords = () => {
+		setSelectedWordIds([]);
+	}
+
     return (
         <div>
             {player.name} - {player.ready ? 'READY' : 'NOT READY'}
@@ -48,13 +59,21 @@ const PlayerInGame = ({player, game}: {player: Player, game: Game}) => {
 				: null
 			}
 			{player.id === currentPlayerId
-				? <WriteWordForm onSubmit={submitWord}/>
+				? 
+					<>
+						<WriteWordForm onSubmit={submitWord} submitButtonText={
+							selectedWordIds.length ? 'Snatch it!' : 'Write'
+						}/>
+						<button onClick={clearWords}>Clear selection</button>
+					</>
 				: null
 			}
 			<h4>Words</h4>
 			<ul>
 				{player.words.map(word => (
-					<li key={word.id}>{getWordString(word)}</li>
+					<li key={word.id}>
+						<button onClick={() => selectWord(word.id)}>{getWordString(word)}</button>
+					</li>
 				))}
 			</ul>
         </div>

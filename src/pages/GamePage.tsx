@@ -35,7 +35,6 @@ const GamePage = () => {
 	}
     
     const game: Game = queryResult.data.gameById;
-    console.log('game letters', game.letters.flipped)
 
     return (
         <div>

@@ -55,3 +55,12 @@ export const WRITE_WORD = gql`
 	}
 	${GAME_DETAILS}
 `
+
+export const SNATCH_WORD = gql`
+	mutation snatchWord($playerId: ID!, $gameId: ID!, $word: String!, $snatchFromId: ID!) {
+		snatchWord(playerID: $playerId, gameID: $gameId, word: $word, snatchFromID: $snatchFromId) {
+			...GameDetails
+		}
+	}
+	${GAME_DETAILS}
+`
