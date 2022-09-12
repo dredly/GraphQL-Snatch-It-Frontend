@@ -2,7 +2,7 @@ import { Player, Game } from "../types";
 import { useContext, SyntheticEvent } from "react"
 import { useMutation } from "@apollo/client";
 import { UserContext } from ".."
-import { DECLARE_READINESS, WRITE_WORD } from "../mutations";
+import { DECLARE_READINESS, WRITE_WORD } from "../graphql/mutations"
 import WriteWordForm from "./WriteWordForm";
 import { scrabbleDict } from "../utils/dictSet";
 import { lettersAvailable, isWord } from "../utils/wordChecking";

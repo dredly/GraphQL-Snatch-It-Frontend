@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useMutation } from "@apollo/client"
-import { CREATE_PLAYER } from "../mutations"
+import { CREATE_PLAYER } from "../graphql/mutations"
 import { useNavigate } from "react-router-dom"
 
 const JoinForm = ({setCurrentPlayer}: {setCurrentPlayer: React.Dispatch<React.SetStateAction<string>>}) => {

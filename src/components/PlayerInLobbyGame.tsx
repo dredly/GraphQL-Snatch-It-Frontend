@@ -2,7 +2,7 @@ import { PlayerInfo } from "../types";
 import { useContext } from "react"
 import { UserContext } from ".."
 import { useMutation } from "@apollo/client";
-import { DECLARE_READINESS } from "../mutations";
+import { DECLARE_READINESS } from "../graphql/mutations";
 
 const PlayerInLobbyGame = ({player}: {player: PlayerInfo}) => {
 	const currentPlayerId = useContext(UserContext)

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom"
 import { UserContext } from ".."
 import PlayerInLobbyGame from "./PlayerInLobbyGame"
 import { useMutation } from "@apollo/client"
-import { JOIN_GAME, START_GAME } from "../mutations"
+import { JOIN_GAME, START_GAME } from "../graphql/mutations"
 
 const GameInLobby = (props: GameInfo) => {
 	const navigate = useNavigate()

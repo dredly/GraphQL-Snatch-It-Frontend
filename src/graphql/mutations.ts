@@ -1,4 +1,5 @@
 import { gql } from "@apollo/client";
+import { GAME_IN_LOBBY_DETAILS } from "./fragments";
 
 export const CREATE_PLAYER = gql`
 	mutation createPlayer($name: String!) {
@@ -12,43 +13,28 @@ export const CREATE_PLAYER = gql`
 export const CREATE_GAME = gql`
 	mutation createGame($playerId: ID!) {
 		createGame(playerID: $playerId) {
-			id
-    		started
-    		players {
-      			id
-      			name
-      			ready
-    		}
+			...GameInLobbyDetails
 		}
 	}
+	${GAME_IN_LOBBY_DETAILS}
 `
 
 export const JOIN_GAME = gql`
 	mutation joinGame($playerId: ID!, $gameId: ID!) {
 		joinGame(playerID: $playerId, gameID: $gameId) {
-			id
-    		started
-    		players {
-      			id
-      			name
-				ready
-    		}
+			...GameInLobbyDetails
 		}
 	}
+	${GAME_IN_LOBBY_DETAILS}
 `
 
 export const DECLARE_READINESS = gql`
 	mutation declareReadiness($playerId: ID!) {
 		declareReadiness(playerID: $playerId) {
-			id
-    		started
-    		players {
-      			id
-      			name
-				ready
-    		}
+			...GameInLobbyDetails
 		}
 	}
+	${GAME_IN_LOBBY_DETAILS}
 `
 
 export const START_GAME = gql`

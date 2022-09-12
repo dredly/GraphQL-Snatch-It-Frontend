@@ -1,7 +1,7 @@
 import { useQuery, useSubscription, useApolloClient } from "@apollo/client"
 import { useParams } from "react-router-dom"
-import { GAME_BY_ID } from "../queries"
-import { GAME_UPDATED } from "../subscriptions"
+import { GAME_BY_ID } from "../graphql/queries"
+import { GAME_UPDATED } from "../graphql/subscriptions"
 import { Game } from "../types"
 import PlayerInGame from "../components/PlayerInGame"
 
