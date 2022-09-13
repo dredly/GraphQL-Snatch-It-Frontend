@@ -1,5 +1,6 @@
 import { Player, Game } from "../types";
-import { useContext, useState, SyntheticEvent } from "react"
+import React from "react";
+import { useContext, SyntheticEvent } from "react"
 import { useMutation } from "@apollo/client";
 import { UserContext } from ".."
 import { DECLARE_READINESS, WRITE_WORD } from "../graphql/mutations"
@@ -8,11 +9,15 @@ import { scrabbleDict } from "../utils/dictSet";
 import { lettersAvailable, isWord } from "../utils/wordChecking";
 import { getWordString } from "../utils/helpers";
 
-const PlayerInGame = ({player, game}: {player: Player, game: Game}) => {
-    const currentPlayerId = useContext(UserContext)
+interface Props {
+	player: Player
+	game: Game
+	selectedWordIds: string[]
+	setSelectedWordIds: React.Dispatch<React.SetStateAction<string[]>>
+}
 
-	// Probably need to take this up a level to GamePage component so that can select wordIds from any player
-	const [selectedWordIds, setSelectedWordIds] = useState<string[]>([])
+const PlayerInGame = ({player, game, selectedWordIds, setSelectedWordIds}: Props) => {
+    const currentPlayerId = useContext(UserContext)
 
     const [toggleReady] = useMutation(DECLARE_READINESS)
 	const [writeWord] = useMutation(WRITE_WORD)
@@ -41,6 +46,20 @@ const PlayerInGame = ({player, game}: {player: Player, game: Game}) => {
 		}
 	}
 
+	const submitSnatchedWord = (evt: SyntheticEvent) => {
+		evt.preventDefault();
+		const target = evt.target as typeof evt.target & {
+			wordInput: {value: string}
+		}
+		const wordAttempt = target.wordInput.value
+		if (isWord(wordAttempt, scrabbleDict)) {
+			console.log(`Snatching -- word attempt = ${wordAttempt}`);
+		} else {
+			console.log('Invalid')
+		}
+		
+	}
+
 	const selectWord = (wordId: string) => {
 		setSelectedWordIds(selectedWordIds.concat(wordId));
 	}
@@ -61,9 +80,10 @@ const PlayerInGame = ({player, game}: {player: Player, game: Game}) => {
 			{player.id === currentPlayerId
 				? 
 					<>
-						<WriteWordForm onSubmit={submitWord} submitButtonText={
-							selectedWordIds.length ? 'Snatch it!' : 'Write'
-						}/>
+						<WriteWordForm 
+							onSubmit={selectedWordIds.length ?  submitSnatchedWord : submitWord} 
+							submitButtonText={selectedWordIds.length ? 'Snatch it!' : 'Write'}
+						/>
 						<button onClick={clearWords}>Clear selection</button>
 					</>
 				: null

@@ -1,6 +1,14 @@
-import { count, getWordString, isSubset, setDifference, getLettersAdded } from '../../utils/helpers';
+import { 
+    count, 
+    getWordString, 
+    isSubset, 
+    setDifference, 
+    getLettersAdded, 
+    findWordInGameById 
+} from '../../utils/helpers';
+import { Word, Player, Game } from '../../types'
 
-const testWord = {
+const testWord: Word = {
     id: '1',
     letters: [
         {id: '1', value: 'T'},
@@ -13,13 +21,47 @@ const testWord = {
     ]
 }
 
-const testWord2 = {
+const testWord2: Word = {
     id: '2',
     letters: [
         {id: '8', value: 'P'},
         {id: '9', value: 'A'},
         {id: '10', value: 'T'},
     ]
+}
+
+const testWord3: Word = {
+    id: '3',
+    letters: [
+        {id: '11', value: 'S'},
+        {id: '12', value: 'P'},
+        {id: '13', value: 'I'},
+        {id: '14', value: 'T'},
+        {id: '15', value: 'E'},
+    ]
+}
+
+const testPlayer1: Player = {
+    id: '1',
+    name: 'Miguel',
+    ready: true,
+    words: [testWord, testWord2]
+}
+
+const testPlayer2: Player = {
+    id: '2',
+    name: 'Miguelito',
+    ready: true,
+    words: [testWord3]
+}
+
+const testGame: Game = {
+    id: '1',
+    players: [testPlayer1, testPlayer2],
+    letters: {
+        flipped: [],
+        unflipped: []
+    }
 }
 
 test('count function', () => {
@@ -52,4 +94,10 @@ test('isSubset function', () => {
 test('getLettersAdded function', () => {
     expect(getLettersAdded(testWord, 'trogdorina')).toBe('ain')
     expect(getLettersAdded(testWord2, 'parts')).toBe('rs')
+})
+
+test('findWordInGameById function', () => {
+    expect(findWordInGameById('1', testGame)).toEqual(testWord)
+    expect(findWordInGameById('3', testGame)).toEqual(testWord3)
+    expect(() => findWordInGameById('4', testGame)).toThrowError()
 })

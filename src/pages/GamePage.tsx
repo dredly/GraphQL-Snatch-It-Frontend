@@ -1,5 +1,6 @@
 import { useQuery, useSubscription, useApolloClient } from "@apollo/client"
 import { useParams } from "react-router-dom"
+import { useState } from "react"
 import { GAME_BY_ID } from "../graphql/queries"
 import { GAME_UPDATED } from "../graphql/subscriptions"
 import { Game } from "../types"
@@ -7,6 +8,8 @@ import PlayerInGame from "../components/PlayerInGame"
 
 const GamePage = () => {
     const client = useApolloClient()
+
+    const [selectedWordIds, setSelectedWordIds] = useState<string[]>([])
 
     const gameId = useParams().id
     const queryResult = useQuery(GAME_BY_ID, {
@@ -40,7 +43,11 @@ const GamePage = () => {
         <div>
             {game.players.map(p => {
                 return (
-                    <PlayerInGame player={p} game={game} key={p.id} />
+                    <PlayerInGame 
+                        player={p} game={game} key={p.id}
+                        selectedWordIds={selectedWordIds}
+                        setSelectedWordIds={setSelectedWordIds} 
+                    />
                 )
             })}
             <h3>Letter Pool</h3>
