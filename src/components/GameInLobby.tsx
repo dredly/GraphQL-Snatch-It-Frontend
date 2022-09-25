@@ -1,13 +1,13 @@
 import { GameInfo } from "../types"
 import { useContext } from "react"
-import { useNavigate } from "react-router-dom"
+// import { useNavigate } from "react-router-dom"
 import { UserContext } from ".."
 import PlayerInLobbyGame from "./PlayerInLobbyGame"
 import { useMutation } from "@apollo/client"
 import { JOIN_GAME, START_GAME } from "../graphql/mutations"
 
 const GameInLobby = (props: GameInfo) => {
-	const navigate = useNavigate()
+	// const navigate = useNavigate()
 
 	const currentPlayerId = useContext(UserContext)
 
@@ -19,10 +19,10 @@ const GameInLobby = (props: GameInfo) => {
 	}
 
 	const startGame = async () => {
-		console.log('About to start game')
-		await start({variables: {gameId: props.id}})
+		const startedGame = await start({variables: {playerId: currentPlayerId}})
 		console.log('Started game')
-		navigate(`/game/${props.id}`)
+		console.dir(startedGame, {depth: null})
+		// navigate(`/game/${props.id}`)
 	}
 
 	const allPlayersReady: boolean = props.players.filter(p => p.ready).length === props.players.length

@@ -46,14 +46,13 @@ export const DECLARE_READINESS = gql`
 	${GAME_IN_LOBBY_DETAILS}
 `
 
-// Might not actually need all this info as it is handled by subscriptions
 export const START_GAME = gql`
-	mutation startGame($gameId: ID!) {
-		startGame(gameID: $gameId) {
-			...GameDetails
+	mutation startGame($playerId: ID!) {
+		startGame(playerID: $playerId) {
+			...GameInLobbyDetails
 		}
 	}
-	${GAME_DETAILS}
+	${GAME_IN_LOBBY_DETAILS}
 `
 
 export const WRITE_WORD = gql`
