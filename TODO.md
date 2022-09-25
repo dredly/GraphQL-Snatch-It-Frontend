@@ -11,5 +11,9 @@
     - [x] Add subscription for writing words
 - [x] Refactor subscriptions to use general game update subscription
 - [x] Start using fragments
+- [x] Implement snatching words
+    - [x] Refactor arguments for findWordById helper function
+- [ ] Adapt to new backend
+    - [x] Get web socket stuff working again
+    - [ ] Change graphql files
 - [ ] Show that games are in progress in the lobby and cannot be joined
-- [ ] Implement snatching words

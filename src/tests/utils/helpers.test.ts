@@ -97,7 +97,7 @@ test('getLettersAdded function', () => {
 })
 
 test('findWordInGameById function', () => {
-    expect(findWordInGameById('1', testGame)).toEqual(testWord)
-    expect(findWordInGameById('3', testGame)).toEqual(testWord3)
-    expect(() => findWordInGameById('4', testGame)).toThrowError()
+    expect(findWordInGameById('1', testGame.players)).toEqual(testWord)
+    expect(findWordInGameById('3', testGame.players)).toEqual(testWord3)
+    expect(() => findWordInGameById('4', testGame.players)).toThrowError()
 })

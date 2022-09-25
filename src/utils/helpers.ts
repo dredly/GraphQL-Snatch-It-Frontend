@@ -1,4 +1,4 @@
-import { Word, Game } from "../types";
+import { Word, Player } from "../types";
 
 export const count = (arr: unknown[], val: unknown) => {
     return arr.filter(item => item === val).length;
@@ -28,8 +28,8 @@ export const getLettersAdded = (wordToSnatch: Word, fullWordAttempt: string) => 
     return fullWordAttemptArray.sort().join('');
 }
 
-export const findWordInGameById = (wordId: string, game: Game): Word => {
-    const allWordsInGame = game.players.map(p => p.words).reduce((a, b) => a.concat(b));
+export const findWordInGameById = (wordId: string, players: Player[]): Word => {
+    const allWordsInGame = players.map(p => p.words).reduce((a, b) => a.concat(b));
     const foundWord = allWordsInGame.find(w => w.id === wordId);
     if (!foundWord) {
         throw new Error('Word not found in game')
