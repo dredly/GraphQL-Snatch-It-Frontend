@@ -2,12 +2,12 @@ import { PlayerInfo } from "../types";
 import { useContext } from "react"
 import { UserContext } from ".."
 import { useMutation } from "@apollo/client";
-import { DECLARE_READINESS } from "../graphql/mutations";
+import { TOGGLE_READY } from "../graphql/mutations";
 
 const PlayerInLobbyGame = ({player}: {player: PlayerInfo}) => {
 	const currentPlayerId = useContext(UserContext)
 
-	const [toggleReady] = useMutation(DECLARE_READINESS)
+	const [toggleReady] = useMutation(TOGGLE_READY)
 
 	const toggleReadiness = () => {
 		toggleReady({variables: {

@@ -28,6 +28,15 @@ export const JOIN_GAME = gql`
 	${GAME_IN_LOBBY_DETAILS}
 `
 
+export const TOGGLE_READY = gql`
+	mutation toggleReady($playerId: ID!) {
+		toggleReady(playerID: $playerId) {
+			...GameInLobbyDetails
+		}
+	}
+	${GAME_IN_LOBBY_DETAILS}
+`
+
 export const DECLARE_READINESS = gql`
 	mutation declareReadiness($playerId: ID!) {
 		declareReadiness(playerID: $playerId) {

@@ -3,7 +3,7 @@ import { gql } from "@apollo/client";
 export const GAME_IN_LOBBY_DETAILS = gql`
     fragment GameInLobbyDetails on Game {
         id
-    	started
+    	status
     	players {
       		id
       		name
@@ -15,7 +15,6 @@ export const GAME_IN_LOBBY_DETAILS = gql`
 export const GAME_DETAILS = gql`
     fragment GameDetails on Game {
         id
-    	started
     	players {
       		id
       		name
