@@ -1,15 +1,15 @@
 import { useQuery } from "@apollo/client"
-import { useState } from "react"
+import { useState, useContext } from "react"
 import { ONE_GAME_IN_PROGRESS } from "../graphql/queries"
 
 import { Game } from "../types"
 import PlayerInGame from "../components/PlayerInGame"
+import { GameInProgressContext } from ".."
 
 const GamePage = () => {
     const [selectedWordIds, setSelectedWordIds] = useState<string[]>([])
 
-    //TEMPORARY
-    const gameId = "miguel"
+    const gameId = useContext(GameInProgressContext)
 
     const queryResult = useQuery(ONE_GAME_IN_PROGRESS, {
         variables: {

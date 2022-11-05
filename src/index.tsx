@@ -41,6 +41,7 @@ const client = new ApolloClient({
 });
 
 export const UserContext = createContext('')
+export const GameInProgressContext = createContext('')
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
