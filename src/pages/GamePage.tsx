@@ -1,12 +1,15 @@
-import { useQuery } from "@apollo/client"
+import { useQuery, useSubscription, useApolloClient } from "@apollo/client"
 import { useState, useContext } from "react"
 import { ONE_GAME_IN_PROGRESS } from "../graphql/queries"
 
 import { Game } from "../types"
 import PlayerInGame from "../components/PlayerInGame"
 import { GameInProgressContext } from ".."
+import { GAME_UPDATED } from "../graphql/subscriptions"
 
 const GamePage = () => {
+    const client = useApolloClient()
+
     const [selectedWordIds, setSelectedWordIds] = useState<string[]>([])
 
     const gameId = useContext(GameInProgressContext)
@@ -14,6 +17,17 @@ const GamePage = () => {
     const queryResult = useQuery(ONE_GAME_IN_PROGRESS, {
         variables: {
             gameId
+        }
+    })
+
+    useSubscription(GAME_UPDATED, {
+        onSubscriptionData: ({ subscriptionData }) => {
+            const updatedGame = subscriptionData.data.gameInProgressUpdated
+            client.cache.updateQuery({query: ONE_GAME_IN_PROGRESS}, () => {
+				return {
+					oneGameInProgress: updatedGame,
+				}
+			})
         }
     })
 

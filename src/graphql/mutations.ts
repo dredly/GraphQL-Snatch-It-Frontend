@@ -58,10 +58,10 @@ export const CREATE_GAME_IN_PROGRESS = gql`
 export const DECLARE_READINESS = gql`
 	mutation declareReadiness($playerId: ID!) {
 		declareReadiness(playerID: $playerId) {
-			...GameInLobbyDetails
+			...GameDetails
 		}
 	}
-	${GAME_IN_LOBBY_DETAILS}
+	${GAME_DETAILS}
 `
 
 export const WRITE_WORD = gql`
