@@ -37,18 +37,27 @@ export const TOGGLE_READY = gql`
 	${GAME_IN_LOBBY_DETAILS}
 `
 
-export const DECLARE_READINESS = gql`
-	mutation declareReadiness($playerId: ID!) {
-		declareReadiness(playerID: $playerId) {
+export const START_GAME = gql`
+	mutation startGame($playerId: ID!) {
+		startGame(playerID: $playerId) {
 			...GameInLobbyDetails
 		}
 	}
 	${GAME_IN_LOBBY_DETAILS}
 `
 
-export const START_GAME = gql`
-	mutation startGame($playerId: ID!) {
-		startGame(playerID: $playerId) {
+export const CREATE_GAME_IN_PROGRESS = gql`
+	mutation createGameInProgress($game: GameInput!) {
+		createGameInProgress(game: $game) {
+			...GameDetails
+		}
+	}
+	${GAME_DETAILS}
+`
+
+export const DECLARE_READINESS = gql`
+	mutation declareReadiness($playerId: ID!) {
+		declareReadiness(playerID: $playerId) {
 			...GameInLobbyDetails
 		}
 	}

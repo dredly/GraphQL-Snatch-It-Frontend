@@ -13,7 +13,7 @@ export const GAME_IN_LOBBY_DETAILS = gql`
 `
 
 export const GAME_DETAILS = gql`
-    fragment GameDetails on Game {
+    fragment GameDetails on GameInProgress {
         id
     	players {
       		id

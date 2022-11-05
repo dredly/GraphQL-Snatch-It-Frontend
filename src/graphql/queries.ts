@@ -10,11 +10,11 @@ export const ALL_GAMES = gql`
 	${GAME_IN_LOBBY_DETAILS}
 `;
 
-export const GAME_BY_ID = gql`
-	query gameById($gameId: ID!) {
-		gameById(gameID: $gameId) {
+export const ONE_GAME_IN_PROGRESS = gql`
+	query oneGameInProgress($gameId: ID!) {
+		oneGameInProgress(gameID: $gameId) {
 			...GameDetails
 		}
 	}
 	${GAME_DETAILS}
-`
+`;

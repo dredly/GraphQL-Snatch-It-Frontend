@@ -1,32 +1,20 @@
-import { useQuery, useSubscription, useApolloClient } from "@apollo/client"
-import { useParams } from "react-router-dom"
+import { useQuery } from "@apollo/client"
 import { useState } from "react"
-import { GAME_BY_ID } from "../graphql/queries"
-import { GAME_UPDATED } from "../graphql/subscriptions"
+import { ONE_GAME_IN_PROGRESS } from "../graphql/queries"
+
 import { Game } from "../types"
 import PlayerInGame from "../components/PlayerInGame"
 
 const GamePage = () => {
-    const client = useApolloClient()
-
     const [selectedWordIds, setSelectedWordIds] = useState<string[]>([])
 
-    const gameId = useParams().id
-    const queryResult = useQuery(GAME_BY_ID, {
+    //TEMPORARY
+    const gameId = "miguel"
+
+    const queryResult = useQuery(ONE_GAME_IN_PROGRESS, {
         variables: {
             gameId
         }
-    })
-
-    useSubscription(GAME_UPDATED, {
-        onSubscriptionData: ({ subscriptionData }) => {
-			const updatedGame = subscriptionData.data.gameUpdated
-			client.cache.updateQuery({query: GAME_BY_ID}, () => {
-				return {
-					gameById: updatedGame,
-				}
-			})
-		}
     })
 
     if (queryResult.loading) {
@@ -34,10 +22,11 @@ const GamePage = () => {
 	}
 
 	if (queryResult.error) {
+        console.log('error', queryResult.error)
 		return <div>Query error</div>
 	}
     
-    const game: Game = queryResult.data.gameById;
+    const game: Game = queryResult.data.oneGameInProgress;
 
     return (
         <div>
