@@ -13,8 +13,9 @@
 - [x] Start using fragments
 - [x] Implement snatching words
     - [x] Refactor arguments for findWordById helper function
-- [ ] Adapt to new backend
+- [x] Adapt to new backend
     - [x] Get web socket stuff working again
     - [x] Change graphql files
-    - [ ] Get readiness in game working again
+    - [x] Get readiness in game working again
 - [ ] Show that games are in progress in the lobby and cannot be joined
+- [ ] Show feedback messages to players
