@@ -28,19 +28,36 @@ export const JOIN_GAME = gql`
 	${GAME_IN_LOBBY_DETAILS}
 `
 
-export const DECLARE_READINESS = gql`
-	mutation declareReadiness($playerId: ID!) {
-		declareReadiness(playerID: $playerId) {
+export const TOGGLE_READY = gql`
+	mutation toggleReady($playerId: ID!) {
+		toggleReady(playerID: $playerId) {
 			...GameInLobbyDetails
 		}
 	}
 	${GAME_IN_LOBBY_DETAILS}
 `
 
-// Might not actually need all this info as it is handled by subscriptions
 export const START_GAME = gql`
-	mutation startGame($gameId: ID!) {
-		startGame(gameID: $gameId) {
+	mutation startGame($playerId: ID!) {
+		startGame(playerID: $playerId) {
+			...GameInLobbyDetails
+		}
+	}
+	${GAME_IN_LOBBY_DETAILS}
+`
+
+export const CREATE_GAME_IN_PROGRESS = gql`
+	mutation createGameInProgress($game: GameInput!) {
+		createGameInProgress(game: $game) {
+			...GameDetails
+		}
+	}
+	${GAME_DETAILS}
+`
+
+export const DECLARE_READINESS = gql`
+	mutation declareReadiness($playerId: ID!) {
+		declareReadiness(playerID: $playerId) {
 			...GameDetails
 		}
 	}

@@ -3,11 +3,11 @@ import React from "react";
 import { useContext, SyntheticEvent } from "react"
 import { useMutation } from "@apollo/client";
 import { UserContext } from ".."
-import { DECLARE_READINESS, WRITE_WORD } from "../graphql/mutations"
+import { DECLARE_READINESS, WRITE_WORD, SNATCH_WORD } from "../graphql/mutations"
 import WriteWordForm from "./WriteWordForm";
 import { scrabbleDict } from "../utils/dictSet";
-import { lettersAvailable, isWord } from "../utils/wordChecking";
-import { getWordString } from "../utils/helpers";
+import { lettersAvailable, isWord, canSnatch } from "../utils/wordChecking";
+import { getWordString, findWordInGameById } from "../utils/helpers";
 
 interface Props {
 	player: Player
@@ -21,6 +21,7 @@ const PlayerInGame = ({player, game, selectedWordIds, setSelectedWordIds}: Props
 
     const [toggleReady] = useMutation(DECLARE_READINESS)
 	const [writeWord] = useMutation(WRITE_WORD)
+	const [snatchWord] = useMutation(SNATCH_WORD)
 
 	const toggleReadiness = () => {
 		toggleReady({variables: {
@@ -52,8 +53,20 @@ const PlayerInGame = ({player, game, selectedWordIds, setSelectedWordIds}: Props
 			wordInput: {value: string}
 		}
 		const wordAttempt = target.wordInput.value
-		if (isWord(wordAttempt, scrabbleDict)) {
-			console.log(`Snatching -- word attempt = ${wordAttempt}`);
+		// Just use the first selected word for now if there are more than one
+		const snatchFrom = findWordInGameById(selectedWordIds[0], game.players);
+		if (isWord(wordAttempt, scrabbleDict) && canSnatch(
+			wordAttempt, snatchFrom, game.letters.flipped
+		)) {
+			target.wordInput.value = ''
+			snatchWord({
+				variables: {
+					playerId: currentPlayerId,
+					gameId: game.id,
+					word: wordAttempt,
+					snatchFromId: selectedWordIds[0]
+				}
+			})
 		} else {
 			console.log('Invalid')
 		}
