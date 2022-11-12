@@ -45,3 +45,12 @@ export const GAME_UPDATED = gql`
 	}
 	${GAME_DETAILS}
 `
+
+export const GAME_ENDED = gql`
+	subscription {
+		gameEndedSummary {
+			id
+			# TODO: complete the rest of this once we know the GQL type
+		}
+	}
+`

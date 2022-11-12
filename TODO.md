@@ -17,5 +17,9 @@
     - [x] Get web socket stuff working again
     - [x] Change graphql files
     - [x] Get readiness in game working again
+- [ ] Handle end of game stuff
+    - [ ] Make sure players can still snatch and write words before game properly ends
+    - [ ] Transition to game summary screen when game does end
 - [ ] Show that games are in progress in the lobby and cannot be joined
 - [ ] Show feedback messages to players
+- [ ] Styling

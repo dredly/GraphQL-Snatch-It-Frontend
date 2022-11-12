@@ -22,7 +22,13 @@ const GamePage = () => {
 
     useSubscription(GAME_UPDATED, {
         onSubscriptionData: ({ subscriptionData }) => {
-            const updatedGame = subscriptionData.data.gameInProgressUpdated
+            const updatedGame: Game = subscriptionData.data.gameInProgressUpdated
+
+            //Check if letters all used up
+            if (!updatedGame.letters.unflipped.length) {
+                console.log("NO MORE LETTERS");
+            }
+
             client.cache.updateQuery({query: ONE_GAME_IN_PROGRESS}, () => {
 				return {
 					oneGameInProgress: updatedGame,
