@@ -55,11 +55,23 @@ const GamePage = () => {
 		return <div>Query error</div>
 	}
 
-    if (gameSummary) {
-        return <Summary summary={gameSummary}/>
-    }
-    
     const game: Game = queryResult.data.oneGameInProgress;
+
+    if (gameSummary) {
+        const scoreList = gameSummary.scoreList.map(ps => {
+            const player = game.players.find(p => p.id === ps.id);
+            if (!player) {
+                throw new Error("Could not associate a player name with that id")
+            }
+            return { ...ps, name: player.name }
+        })
+        return (
+            <Summary summary={{
+                id: gameSummary.id,
+                scoreList
+            }}/>
+        )
+    }
 
     return (
         <div>

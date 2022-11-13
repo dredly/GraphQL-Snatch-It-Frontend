@@ -19,7 +19,7 @@
     - [x] Get readiness in game working again
 - [ ] Handle end of game stuff
     - [x] Make sure players can still snatch and write words before game properly ends
-    - [ ] Transition to game summary screen when game does end
+    - [x] Transition to game summary screen when game does end
     - [ ] Send off delete game mutation to server
 - [ ] Fix bug which prevents players from snatching a word which has already been snatched
 - [ ] Take player back to normal word writing mode once they have snatched a word

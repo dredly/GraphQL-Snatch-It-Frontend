@@ -1,11 +1,11 @@
-import { GameSummary } from "../types"
+import { GameSummaryWithNames } from "../types"
 
-const Summary = ({summary}: {summary: GameSummary}) => {
+const Summary = ({summary}: {summary: GameSummaryWithNames}) => {
     return (
         <>
             <h2>Scores</h2>
             <ol>
-                {summary.scoreList.map(ps => <li key={ps.id}>{ps.score}</li>)}
+                {summary.scoreList.map(ps => <li key={ps.id}>{ps.name} - {ps.score}</li>)}
             </ol>
         </>
     )
