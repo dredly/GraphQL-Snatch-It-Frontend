@@ -1,16 +1,18 @@
 import { useQuery, useSubscription, useApolloClient } from "@apollo/client"
 import { useState, useContext } from "react"
 import { ONE_GAME_IN_PROGRESS } from "../graphql/queries"
-
-import { Game } from "../types"
+import Summary from "../components/Summary"
+import { Game, GameSummary } from "../types"
 import PlayerInGame from "../components/PlayerInGame"
 import { GameInProgressContext } from ".."
-import { GAME_UPDATED } from "../graphql/subscriptions"
+import { GAME_ENDED, GAME_UPDATED } from "../graphql/subscriptions"
 
 const GamePage = () => {
     const client = useApolloClient()
 
     const [selectedWordIds, setSelectedWordIds] = useState<string[]>([])
+
+    const [gameSummary, setGameSummary] = useState<GameSummary | null>(null)
 
     const gameId = useContext(GameInProgressContext)
 
@@ -37,6 +39,13 @@ const GamePage = () => {
         }
     })
 
+    useSubscription(GAME_ENDED, {
+        onSubscriptionData: ({ subscriptionData }) => {
+            const gameSummaryData: GameSummary = subscriptionData.data.gameInProgressEnded
+            setGameSummary(gameSummaryData)
+        }
+    })
+
     if (queryResult.loading) {
 		return <div>...loading</div>;
 	}
@@ -45,6 +54,10 @@ const GamePage = () => {
         console.log('error', queryResult.error)
 		return <div>Query error</div>
 	}
+
+    if (gameSummary) {
+        return <Summary summary={gameSummary}/>
+    }
     
     const game: Game = queryResult.data.oneGameInProgress;
 

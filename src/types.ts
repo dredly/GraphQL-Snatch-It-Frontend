@@ -32,3 +32,13 @@ export interface Game extends GameInfo {
 	players: Player[]
 	letters: Letters
 }
+
+export interface PlayerScore {
+	id: string
+	score: number
+}
+
+export interface GameSummary {
+	id: string
+	scoreList: PlayerScore[]
+}

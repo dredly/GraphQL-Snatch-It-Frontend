@@ -18,8 +18,11 @@
     - [x] Change graphql files
     - [x] Get readiness in game working again
 - [ ] Handle end of game stuff
-    - [ ] Make sure players can still snatch and write words before game properly ends
+    - [x] Make sure players can still snatch and write words before game properly ends
     - [ ] Transition to game summary screen when game does end
+    - [ ] Send off delete game mutation to server
+- [ ] Fix bug which prevents players from snatching a word which has already been snatched
+- [ ] Take player back to normal word writing mode once they have snatched a word
 - [ ] Show that games are in progress in the lobby and cannot be joined
 - [ ] Show feedback messages to players
 - [ ] Styling

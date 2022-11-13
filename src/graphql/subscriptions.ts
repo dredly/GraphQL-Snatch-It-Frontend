@@ -48,9 +48,12 @@ export const GAME_UPDATED = gql`
 
 export const GAME_ENDED = gql`
 	subscription {
-		gameEndedSummary {
+		gameInProgressEnded {
 			id
-			# TODO: complete the rest of this once we know the GQL type
+			scoreList {
+				id
+				score
+			}
 		}
 	}
 `
