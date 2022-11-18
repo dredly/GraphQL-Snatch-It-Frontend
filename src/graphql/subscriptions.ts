@@ -45,3 +45,15 @@ export const GAME_UPDATED = gql`
 	}
 	${GAME_DETAILS}
 `
+
+export const GAME_ENDED = gql`
+	subscription {
+		gameInProgressEnded {
+			id
+			scoreList {
+				id
+				score
+			}
+		}
+	}
+`

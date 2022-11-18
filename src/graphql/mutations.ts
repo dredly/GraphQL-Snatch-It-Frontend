@@ -45,6 +45,21 @@ export const START_GAME = gql`
 	}
 	${GAME_IN_LOBBY_DETAILS}
 `
+export const END_GAME = gql`
+	mutation endGame($gameId: ID!) {
+		endGame(gameID: $gameId) {
+			id
+		}
+	}
+`
+
+export const REMOVE_GAME = gql`
+	mutation removeGame($gameId: ID!) {
+		removeGame(gameID: $gameId) {
+			id
+		}
+	}
+`
 
 export const CREATE_GAME_IN_PROGRESS = gql`
 	mutation createGameInProgress($game: GameInput!) {

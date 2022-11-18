@@ -1,18 +1,23 @@
-import { useQuery, useSubscription, useApolloClient } from "@apollo/client"
+import { useQuery, useSubscription, useApolloClient, useMutation } from "@apollo/client"
 import { useState, useContext } from "react"
 import { ONE_GAME_IN_PROGRESS } from "../graphql/queries"
-
-import { Game } from "../types"
+import Summary from "../components/Summary"
+import { Game, GameSummary } from "../types"
 import PlayerInGame from "../components/PlayerInGame"
 import { GameInProgressContext } from ".."
-import { GAME_UPDATED } from "../graphql/subscriptions"
+import { GAME_ENDED, GAME_UPDATED } from "../graphql/subscriptions"
+import { END_GAME } from "../graphql/mutations"
 
 const GamePage = () => {
     const client = useApolloClient()
 
     const [selectedWordIds, setSelectedWordIds] = useState<string[]>([])
 
+    const [gameSummary, setGameSummary] = useState<GameSummary | null>(null)
+
     const gameId = useContext(GameInProgressContext)
+
+    const [endGame] = useMutation(END_GAME)
 
     const queryResult = useQuery(ONE_GAME_IN_PROGRESS, {
         variables: {
@@ -22,12 +27,30 @@ const GamePage = () => {
 
     useSubscription(GAME_UPDATED, {
         onSubscriptionData: ({ subscriptionData }) => {
-            const updatedGame = subscriptionData.data.gameInProgressUpdated
+            const updatedGame: Game = subscriptionData.data.gameInProgressUpdated
+
+            //Check if letters all used up
+            if (!updatedGame.letters.unflipped.length) {
+                console.log("NO MORE LETTERS");
+                endGame({
+                    variables: {
+                        gameId: game.id
+                    }
+                })
+            }
+
             client.cache.updateQuery({query: ONE_GAME_IN_PROGRESS}, () => {
 				return {
 					oneGameInProgress: updatedGame,
 				}
 			})
+        }
+    })
+
+    useSubscription(GAME_ENDED, {
+        onSubscriptionData: ({ subscriptionData }) => {
+            const gameSummaryData: GameSummary = subscriptionData.data.gameInProgressEnded
+            setGameSummary(gameSummaryData)
         }
     })
 
@@ -39,8 +62,24 @@ const GamePage = () => {
         console.log('error', queryResult.error)
 		return <div>Query error</div>
 	}
-    
+
     const game: Game = queryResult.data.oneGameInProgress;
+
+    if (gameSummary) {
+        const scoreList = gameSummary.scoreList.map(ps => {
+            const player = game.players.find(p => p.id === ps.id);
+            if (!player) {
+                throw new Error("Could not associate a player name with that id")
+            }
+            return { ...ps, name: player.name }
+        })
+        return (
+            <Summary summary={{
+                id: gameSummary.id,
+                scoreList
+            }}/>
+        )
+    }
 
     return (
         <div>
