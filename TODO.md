@@ -17,10 +17,12 @@
     - [x] Get web socket stuff working again
     - [x] Change graphql files
     - [x] Get readiness in game working again
-- [ ] Handle end of game stuff
+- [x] Handle end of game stuff
     - [x] Make sure players can still snatch and write words before game properly ends
     - [x] Transition to game summary screen when game does end
-    - [ ] Send off delete game mutation to server
+    - [x] Send off delete game mutation to server
+        - [x] Send remove game mutation once game is properly ended
+        - [x] Send end game mutation when last letter is flipped
 - [ ] Fix bug which prevents players from snatching a word which has already been snatched
 - [ ] Take player back to normal word writing mode once they have snatched a word
 - [ ] Show that games are in progress in the lobby and cannot be joined

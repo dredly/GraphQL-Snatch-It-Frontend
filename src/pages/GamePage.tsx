@@ -1,4 +1,4 @@
-import { useQuery, useSubscription, useApolloClient } from "@apollo/client"
+import { useQuery, useSubscription, useApolloClient, useMutation } from "@apollo/client"
 import { useState, useContext } from "react"
 import { ONE_GAME_IN_PROGRESS } from "../graphql/queries"
 import Summary from "../components/Summary"
@@ -6,6 +6,7 @@ import { Game, GameSummary } from "../types"
 import PlayerInGame from "../components/PlayerInGame"
 import { GameInProgressContext } from ".."
 import { GAME_ENDED, GAME_UPDATED } from "../graphql/subscriptions"
+import { END_GAME } from "../graphql/mutations"
 
 const GamePage = () => {
     const client = useApolloClient()
@@ -15,6 +16,8 @@ const GamePage = () => {
     const [gameSummary, setGameSummary] = useState<GameSummary | null>(null)
 
     const gameId = useContext(GameInProgressContext)
+
+    const [endGame] = useMutation(END_GAME)
 
     const queryResult = useQuery(ONE_GAME_IN_PROGRESS, {
         variables: {
@@ -29,6 +32,11 @@ const GamePage = () => {
             //Check if letters all used up
             if (!updatedGame.letters.unflipped.length) {
                 console.log("NO MORE LETTERS");
+                endGame({
+                    variables: {
+                        gameId: game.id
+                    }
+                })
             }
 
             client.cache.updateQuery({query: ONE_GAME_IN_PROGRESS}, () => {
