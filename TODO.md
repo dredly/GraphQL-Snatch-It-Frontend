@@ -23,8 +23,8 @@
     - [x] Send off delete game mutation to server
         - [x] Send remove game mutation once game is properly ended
         - [x] Send end game mutation when last letter is flipped
-- [ ] Fix bug which prevents players from snatching a word which has already been snatched
-- [ ] Take player back to normal word writing mode once they have snatched a word
+- [x] Take player back to normal word writing mode once they have snatched a word
+- [ ] Dont attempt to delete a game which has already been deleted (use gameExists query for this)
 - [ ] Show that games are in progress in the lobby and cannot be joined
 - [ ] Show feedback messages to players
 - [ ] Styling

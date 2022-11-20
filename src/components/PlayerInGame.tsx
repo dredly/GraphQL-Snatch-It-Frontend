@@ -70,7 +70,7 @@ const PlayerInGame = ({player, game, selectedWordIds, setSelectedWordIds}: Props
 		} else {
 			console.log('Invalid')
 		}
-		
+		setSelectedWordIds([])
 	}
 
 	const selectWord = (wordId: string) => {
