@@ -24,7 +24,7 @@
         - [x] Send remove game mutation once game is properly ended
         - [x] Send end game mutation when last letter is flipped
 - [x] Take player back to normal word writing mode once they have snatched a word
-- [ ] Dont attempt to delete a game which has already been deleted (use gameExists query for this)
+- [x] Dont attempt to delete a game which has already been deleted (use gameExists query for this)
 - [ ] Show that games are in progress in the lobby and cannot be joined
 - [ ] Show feedback messages to players
 - [ ] Styling
