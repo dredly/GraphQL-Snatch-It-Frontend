@@ -1,6 +1,6 @@
 import { useQuery, useSubscription, useApolloClient, useMutation } from "@apollo/client"
 import { useState, useContext } from "react"
-import { ONE_GAME_IN_PROGRESS } from "../graphql/queries"
+import { ONE_GAME_IN_PROGRESS, GAME_EXISTS } from "../graphql/queries"
 import Summary from "../components/Summary"
 import { Game, GameSummary } from "../types"
 import PlayerInGame from "../components/PlayerInGame"
@@ -19,11 +19,13 @@ const GamePage = () => {
 
     const [endGame] = useMutation(END_GAME)
 
-    const queryResult = useQuery(ONE_GAME_IN_PROGRESS, {
+    const gameQueryResult = useQuery(ONE_GAME_IN_PROGRESS, {
         variables: {
             gameId
         }
     })
+
+    const gameExistsQueryResult = useQuery(GAME_EXISTS)
 
     useSubscription(GAME_UPDATED, {
         onSubscriptionData: ({ subscriptionData }) => {
@@ -32,11 +34,14 @@ const GamePage = () => {
             //Check if letters all used up
             if (!updatedGame.letters.unflipped.length) {
                 console.log("NO MORE LETTERS");
-                endGame({
-                    variables: {
-                        gameId: game.id
-                    }
-                })
+                const data = gameExistsQueryResult.data;
+                if (data && data.gameExists) {
+                    endGame({
+                        variables: {
+                            gameId: game.id
+                        }
+                    })
+                }
             }
 
             client.cache.updateQuery({query: ONE_GAME_IN_PROGRESS}, () => {
@@ -54,16 +59,16 @@ const GamePage = () => {
         }
     })
 
-    if (queryResult.loading) {
+    if (gameQueryResult.loading) {
 		return <div>...loading</div>;
 	}
 
-	if (queryResult.error) {
-        console.log('error', queryResult.error)
+	if (gameQueryResult.error) {
+        console.log('error', gameQueryResult.error)
 		return <div>Query error</div>
 	}
 
-    const game: Game = queryResult.data.oneGameInProgress;
+    const game: Game = gameQueryResult.data.oneGameInProgress;
 
     if (gameSummary) {
         const scoreList = gameSummary.scoreList.map(ps => {
