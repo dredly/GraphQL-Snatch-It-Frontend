@@ -2,7 +2,7 @@ import { useMutation, useQuery, useSubscription, useApolloClient } from "@apollo
 import { ALL_GAMES } from "../graphql/queries"
 import { CREATE_GAME } from "../graphql/mutations"
 import { GAME_INFO_ADDED, GAME_INFO_UPDATED, GAME_STARTED } from "../graphql/subscriptions"
-import { GameInfo } from "../types"
+import { GameInfo, Player } from "../types"
 import GameInLobby from "../components/GameInLobby"
 import { useState, useContext } from "react"
 import { useNavigate } from "react-router-dom"
@@ -40,14 +40,18 @@ const Lobby = ({setGameInProgressId}: {setGameInProgressId: React.Dispatch<React
 		}
 	})
 
-	// TODO: Only redirect to the game page for players who are actually in the game
 	useSubscription(GAME_STARTED, {
 		onSubscriptionData: ({ subscriptionData }) => {
 			console.log('Got subscription data for starting game in progress')
 			const startedGame = subscriptionData.data.gameInProgressStarted
 			const gameId = startedGame.id
-			setGameInProgressId(gameId)
-			navigate('/game')
+
+			// Only redirect to the game page for players who are actually in the game
+			const inGamePlayerIds: string[] = startedGame.players.map((p: Player) => p.id)
+			if (inGamePlayerIds.includes(currentPlayerId)) {
+				setGameInProgressId(gameId)
+				navigate('/game')
+			}
 		}
 	})
 
