@@ -36,7 +36,7 @@ const GameInLobby = (props: GameInfo) => {
 	return (
 		<div>
 			<h2>{`${props.players[0].name}'s game`}</h2>
-			<p>Not yet started</p>
+			<p>{props.status}</p>
 			<h3>Players</h3>
 			{props.players.map(p => (
 				<PlayerInLobbyGame player={p} key={p.id}/>

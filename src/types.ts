@@ -4,9 +4,12 @@ export interface PlayerInfo {
 	id: string
 }
 
+export type Status = 'NOT_STARTED' | 'IN_PROGRESS' | 'FINISHED'
+
 export interface GameInfo {
-	players: PlayerInfo[]
 	id: string
+	status: Status
+	players: PlayerInfo[]
 }
 
 export interface Letter {
@@ -28,7 +31,7 @@ export interface Player extends PlayerInfo {
 	words: Word[]
 }
 
-export interface Game extends GameInfo {
+export interface Game extends Omit<GameInfo, 'status'> {
 	players: Player[]
 	letters: Letters
 }

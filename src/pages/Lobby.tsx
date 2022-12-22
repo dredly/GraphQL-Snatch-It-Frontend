@@ -4,6 +4,7 @@ import { CREATE_GAME } from "../graphql/mutations"
 import { GAME_INFO_ADDED, GAME_INFO_UPDATED, GAME_STARTED } from "../graphql/subscriptions"
 import { GameInfo, Player } from "../types"
 import GameInLobby from "../components/GameInLobby"
+import GameInLobbyOverview from "../components/GameInLobbyOverview"
 import { useState, useContext } from "react"
 import { useNavigate } from "react-router-dom"
 import { UserContext } from ".."
@@ -51,6 +52,14 @@ const Lobby = ({setGameInProgressId}: {setGameInProgressId: React.Dispatch<React
 			if (inGamePlayerIds.includes(currentPlayerId)) {
 				setGameInProgressId(gameId)
 				navigate('/game')
+			} else {
+				client.cache.updateQuery({query: ALL_GAMES}, ({ allGames }) => {
+					return {
+						// This might mess up because of returning a gameInProgress instead of a lobbyGame, lets see
+						// TODO: fix to use proper types
+						allGames: allGames.map((g: { id: string }) => g.id === gameId ? startedGame : g)
+					}
+				})
 			}
 		}
 	})
@@ -82,7 +91,9 @@ const Lobby = ({setGameInProgressId}: {setGameInProgressId: React.Dispatch<React
 		<div>
 			<h1>{games.length} games currently open</h1>
 			{games.map(g => (
-				<GameInLobby players={g.players} id={g.id} key={g.id} />
+				g.status === "NOT_STARTED"
+					? <GameInLobby status={g.status} players={g.players} id={g.id} key={g.id} />
+					: <GameInLobbyOverview status={g.status} numPlayers={g.players.length} key={g.id} />
 			))}
 			{inGame
 				? null

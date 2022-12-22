@@ -26,5 +26,9 @@
 - [x] Take player back to normal word writing mode once they have snatched a word
 - [x] Dont attempt to delete a game which has already been deleted (use gameExists query for this)
 - [ ] Show that games are in progress in the lobby and cannot be joined
+    - [x] Only navigate players in the game to the game page when it starts
+    - [ ] Display overview of games in progress to players still in the lobby
+    - [ ] Handle games ending in the lobby
+    - [ ] Improve lobby game display with i.e. the game owner name and how many spots are open if the game hasnt started yet
 - [ ] Show feedback messages to players
 - [ ] Styling
