@@ -1,8 +1,8 @@
 import { useMutation, useQuery, useSubscription, useApolloClient } from "@apollo/client"
 import { ALL_GAMES } from "../graphql/queries"
 import { CREATE_GAME } from "../graphql/mutations"
-import { GAME_INFO_ADDED, GAME_INFO_UPDATED, GAME_STARTED } from "../graphql/subscriptions"
-import { GameInfo, Player } from "../types"
+import { GAME_INFO_ADDED, GAME_INFO_UPDATED, GAME_STARTED, GAME_STARTED_LOBBY } from "../graphql/subscriptions"
+import { Game, GameInfo, Player } from "../types"
 import GameInLobby from "../components/GameInLobby"
 import GameInLobbyOverview from "../components/GameInLobbyOverview"
 import { useState, useContext } from "react"
@@ -41,25 +41,28 @@ const Lobby = ({setGameInProgressId}: {setGameInProgressId: React.Dispatch<React
 		}
 	})
 
-	useSubscription(GAME_STARTED, {
+	useSubscription(GAME_STARTED_LOBBY, {
 		onSubscriptionData: ({ subscriptionData }) => {
 			console.log('Got subscription data for starting game in progress')
-			const startedGame = subscriptionData.data.gameInProgressStarted
+			const startedGame: GameInfo = subscriptionData.data.gameStarted
 			const gameId = startedGame.id
+			client.cache.updateQuery({query: ALL_GAMES}, ({ allGames }) => {
+				return {
+					allGames: allGames.map((g: { id: string }) => g.id === gameId ? startedGame : g)
+				}
+			})
+		}
+	})
 
+	useSubscription(GAME_STARTED, {
+		onSubscriptionData: ({ subscriptionData }) => {
+			const startedGame: Game = subscriptionData.data.gameInProgressStarted
+			const gameId = startedGame.id
 			// Only redirect to the game page for players who are actually in the game
 			const inGamePlayerIds: string[] = startedGame.players.map((p: Player) => p.id)
 			if (inGamePlayerIds.includes(currentPlayerId)) {
 				setGameInProgressId(gameId)
 				navigate('/game')
-			} else {
-				client.cache.updateQuery({query: ALL_GAMES}, ({ allGames }) => {
-					return {
-						// This might mess up because of returning a gameInProgress instead of a lobbyGame, lets see
-						// TODO: fix to use proper types
-						allGames: allGames.map((g: { id: string }) => g.id === gameId ? startedGame : g)
-					}
-				})
 			}
 		}
 	})
