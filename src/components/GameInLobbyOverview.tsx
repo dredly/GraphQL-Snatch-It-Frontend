@@ -1,14 +1,9 @@
-import { Status } from "../types"
+import { GameInfo } from "../types"
 
-interface GameInLobbyOverviewProps {
-    status: Status
-    numPlayers: number
-}
-
-const GameInLobbyOverview = (props: GameInLobbyOverviewProps) => {
+const GameInLobbyOverview = (props: GameInfo) => {
     return (
         <div>
-            <h3>Game with {props.numPlayers} players</h3>
+            <h3>Game with {props.players.length} players</h3>
             <p>{props.status}</p>
         </div>
     )

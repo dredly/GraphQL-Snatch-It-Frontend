@@ -28,6 +28,24 @@ export const GAME_STARTED_LOBBY = gql`
 	${GAME_IN_LOBBY_DETAILS}
 `
 
+export const GAME_ENDED_LOBBY = gql`
+	subscription {
+		gameEnded {
+			...GameInLobbyDetails
+		}
+	}
+	${GAME_IN_LOBBY_DETAILS}
+`
+
+export const GAME_REMOVED_LOBBY = gql`
+	subscription {
+		gameRemoved {
+			...GameInLobbyDetails
+		}
+	}
+	${GAME_IN_LOBBY_DETAILS}
+`
+
 export const GAME_STARTED = gql`
 	subscription {
 		gameInProgressStarted {

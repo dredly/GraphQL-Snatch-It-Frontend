@@ -25,7 +25,11 @@ const GamePage = () => {
         }
     })
 
-    const gameExistsQueryResult = useQuery(GAME_EXISTS)
+    const gameExistsQueryResult = useQuery(GAME_EXISTS, {
+        variables: {
+            gameId
+        }
+    })
 
     useSubscription(GAME_UPDATED, {
         onSubscriptionData: ({ subscriptionData }) => {
@@ -35,7 +39,9 @@ const GamePage = () => {
             if (!updatedGame.letters.unflipped.length) {
                 console.log("NO MORE LETTERS");
                 const data = gameExistsQueryResult.data;
+                console.log("gameExistsQueryResult.data", gameExistsQueryResult.data);
                 if (data && data.gameExists) {
+                    console.log("ENDING GAME")
                     endGame({
                         variables: {
                             gameId: game.id

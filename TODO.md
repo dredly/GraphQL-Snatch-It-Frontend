@@ -29,6 +29,9 @@
     - [x] Only navigate players in the game to the game page when it starts
     - [x] Display overview of games in progress to players still in the lobby
     - [ ] Handle games ending in the lobby
+        - [ ] Fix bug where gameExists query returns undefined
+        - [ ] Update status for ended games
+        - [ ] No longer display removed games
     - [ ] Improve lobby game display with i.e. the game owner name and how many spots are open if the game hasnt started yet
 - [ ] Show feedback messages to players
 - [ ] Styling
