@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useSubscription, useApolloClient } from "@apollo/client"
 import { ALL_GAMES } from "../graphql/queries"
 import { CREATE_GAME } from "../graphql/mutations"
-import { GAME_ENDED_LOBBY, GAME_INFO_ADDED, GAME_INFO_UPDATED, GAME_STARTED, GAME_STARTED_LOBBY } from "../graphql/subscriptions"
+import { GAME_ENDED_LOBBY, GAME_INFO_ADDED, GAME_INFO_UPDATED, GAME_REMOVED_LOBBY, GAME_STARTED, GAME_STARTED_LOBBY } from "../graphql/subscriptions"
 import { Game, GameInfo, Player } from "../types"
 import GameInLobby from "../components/GameInLobby"
 import GameInLobbyOverview from "../components/GameInLobbyOverview"
@@ -55,12 +55,24 @@ const Lobby = ({setGameInProgressId}: {setGameInProgressId: React.Dispatch<React
 
 	useSubscription(GAME_ENDED_LOBBY, {
 		onSubscriptionData: ({ subscriptionData }) => {
-			console.log("Received game ended lobby subscription")
 			const endedGame: GameInfo = subscriptionData.data.gameEnded
 			const gameId = endedGame.id
 			client.cache.updateQuery({query: ALL_GAMES}, ({ allGames }) => {
 				return {
 					allGames: allGames.map((g: { id: string }) => g.id === gameId ? endedGame : g)
+				}
+			})
+		}
+	})
+
+	useSubscription(GAME_REMOVED_LOBBY, {
+		onSubscriptionData: ({ subscriptionData }) => {
+			console.log("Received subscription for gameRemoved")
+			const removedGame: GameInfo = subscriptionData.data.gameRemoved
+			const gameId = removedGame.id
+			client.cache.updateQuery({query: ALL_GAMES}, ({ allGames }) => {
+				return {
+					allGames: allGames.filter((g: { id: string }) => g.id !== gameId)
 				}
 			})
 		}
