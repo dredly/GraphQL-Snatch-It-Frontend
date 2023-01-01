@@ -1,6 +1,6 @@
 import { useQuery, useSubscription, useApolloClient, useMutation } from "@apollo/client"
 import { useState, useContext } from "react"
-import { ONE_GAME_IN_PROGRESS, GAME_EXISTS } from "../graphql/queries"
+import { ONE_GAME_IN_PROGRESS } from "../graphql/queries"
 import Summary from "../components/Summary"
 import { Game, GameSummary } from "../types"
 import PlayerInGame from "../components/PlayerInGame"
@@ -25,12 +25,6 @@ const GamePage = () => {
         }
     })
 
-    const gameExistsQueryResult = useQuery(GAME_EXISTS, {
-        variables: {
-            gameId
-        }
-    })
-
     useSubscription(GAME_UPDATED, {
         onSubscriptionData: ({ subscriptionData }) => {
             const updatedGame: Game = subscriptionData.data.gameInProgressUpdated
@@ -38,16 +32,13 @@ const GamePage = () => {
             //Check if letters all used up
             if (!updatedGame.letters.unflipped.length) {
                 console.log("NO MORE LETTERS");
-                const data = gameExistsQueryResult.data;
-                console.log("gameExistsQueryResult.data", gameExistsQueryResult.data);
-                if (data && data.gameExists) {
-                    console.log("ENDING GAME")
-                    endGame({
-                        variables: {
-                            gameId: game.id
-                        }
-                    })
-                }
+                endGame({
+                    variables: {
+                        gameId: game.id
+                    }
+                })
+                    .then(() => { console.log("Ended game") })
+                    .catch((err) => { console.log("Game has already been ended", err) } )
             }
 
             client.cache.updateQuery({query: ONE_GAME_IN_PROGRESS}, () => {
