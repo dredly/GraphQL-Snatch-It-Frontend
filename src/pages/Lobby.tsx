@@ -1,9 +1,10 @@
 import { useMutation, useQuery, useSubscription, useApolloClient } from "@apollo/client"
 import { ALL_GAMES } from "../graphql/queries"
 import { CREATE_GAME } from "../graphql/mutations"
-import { GAME_INFO_ADDED, GAME_INFO_UPDATED, GAME_STARTED } from "../graphql/subscriptions"
-import { GameInfo } from "../types"
+import { GAME_ENDED_LOBBY, GAME_INFO_ADDED, GAME_INFO_UPDATED, GAME_REMOVED_LOBBY, GAME_STARTED, GAME_STARTED_LOBBY } from "../graphql/subscriptions"
+import { Game, GameInfo, Player } from "../types"
 import GameInLobby from "../components/GameInLobby"
+import GameInLobbyOverview from "../components/GameInLobbyOverview"
 import { useState, useContext } from "react"
 import { useNavigate } from "react-router-dom"
 import { UserContext } from ".."
@@ -40,14 +41,53 @@ const Lobby = ({setGameInProgressId}: {setGameInProgressId: React.Dispatch<React
 		}
 	})
 
-	// TODO: Only redirect to the game page for players who are actually in the game
+	useSubscription(GAME_STARTED_LOBBY, {
+		onSubscriptionData: ({ subscriptionData }) => {
+			const startedGame: GameInfo = subscriptionData.data.gameStarted
+			const gameId = startedGame.id
+			client.cache.updateQuery({query: ALL_GAMES}, ({ allGames }) => {
+				return {
+					allGames: allGames.map((g: { id: string }) => g.id === gameId ? startedGame : g)
+				}
+			})
+		}
+	})
+
+	useSubscription(GAME_ENDED_LOBBY, {
+		onSubscriptionData: ({ subscriptionData }) => {
+			const endedGame: GameInfo = subscriptionData.data.gameEnded
+			const gameId = endedGame.id
+			client.cache.updateQuery({query: ALL_GAMES}, ({ allGames }) => {
+				return {
+					allGames: allGames.map((g: { id: string }) => g.id === gameId ? endedGame : g)
+				}
+			})
+		}
+	})
+
+	useSubscription(GAME_REMOVED_LOBBY, {
+		onSubscriptionData: ({ subscriptionData }) => {
+			console.log("Received subscription for gameRemoved")
+			const removedGame: GameInfo = subscriptionData.data.gameRemoved
+			const gameId = removedGame.id
+			client.cache.updateQuery({query: ALL_GAMES}, ({ allGames }) => {
+				return {
+					allGames: allGames.filter((g: { id: string }) => g.id !== gameId)
+				}
+			})
+		}
+	})
+
 	useSubscription(GAME_STARTED, {
 		onSubscriptionData: ({ subscriptionData }) => {
-			console.log('Got subscription data for starting game in progress')
-			const startedGame = subscriptionData.data.gameInProgressStarted
+			const startedGame: Game = subscriptionData.data.gameInProgressStarted
 			const gameId = startedGame.id
-			setGameInProgressId(gameId)
-			navigate('/game')
+			// Only redirect to the game page for players who are actually in the game
+			const inGamePlayerIds: string[] = startedGame.players.map((p: Player) => p.id)
+			if (inGamePlayerIds.includes(currentPlayerId)) {
+				setGameInProgressId(gameId)
+				navigate('/game')
+			}
 		}
 	})
 
@@ -78,7 +118,9 @@ const Lobby = ({setGameInProgressId}: {setGameInProgressId: React.Dispatch<React
 		<div>
 			<h1>{games.length} games currently open</h1>
 			{games.map(g => (
-				<GameInLobby players={g.players} id={g.id} key={g.id} />
+				g.status === "NOT_STARTED"
+					? <GameInLobby status={g.status} players={g.players} id={g.id} key={g.id} />
+					: <GameInLobbyOverview status={g.status} players={g.players} id={g.id} key={g.id} />
 			))}
 			{inGame
 				? null

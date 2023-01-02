@@ -18,9 +18,3 @@ export const ONE_GAME_IN_PROGRESS = gql`
 	}
 	${GAME_DETAILS}
 `;
-
-export const GAME_EXISTS = gql`
-	query gameExists($gameId: ID!) {
-		gameExists(gameID: $gameId)
-	}
-`

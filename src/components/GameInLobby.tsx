@@ -4,6 +4,8 @@ import { UserContext } from ".."
 import PlayerInLobbyGame from "./PlayerInLobbyGame"
 import { useMutation } from "@apollo/client"
 import { CREATE_GAME_IN_PROGRESS, JOIN_GAME, START_GAME } from "../graphql/mutations"
+import GameStatus from "./GameStatus"
+import { MAX_PLAYERS } from "../utils/constants"
 
 const GameInLobby = (props: GameInfo) => {
 
@@ -36,8 +38,8 @@ const GameInLobby = (props: GameInfo) => {
 	return (
 		<div>
 			<h2>{`${props.players[0].name}'s game`}</h2>
-			<p>Not yet started</p>
-			<h3>Players</h3>
+			<GameStatus status={props.status} />
+			<h3>{props.players.length}/{MAX_PLAYERS} players</h3>
 			{props.players.map(p => (
 				<PlayerInLobbyGame player={p} key={p.id}/>
 			))}
