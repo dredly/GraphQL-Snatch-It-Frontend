@@ -1,4 +1,4 @@
-import { Player, Game } from "../types";
+import { Player, Game, Message } from "../types";
 import React from "react";
 import { useContext, SyntheticEvent } from "react"
 import { useMutation } from "@apollo/client";
@@ -14,9 +14,10 @@ interface Props {
 	game: Game
 	selectedWordIds: string[]
 	setSelectedWordIds: React.Dispatch<React.SetStateAction<string[]>>
+	setMessage: React.Dispatch<React.SetStateAction<Message | null>>
 }
 
-const PlayerInGame = ({player, game, selectedWordIds, setSelectedWordIds}: Props) => {
+const PlayerInGame = ({player, game, selectedWordIds, setSelectedWordIds, setMessage}: Props) => {
     const currentPlayerId = useContext(UserContext)
 
     const [toggleReady] = useMutation(DECLARE_READINESS)
@@ -43,7 +44,7 @@ const PlayerInGame = ({player, game, selectedWordIds, setSelectedWordIds}: Props
 				word: wordAttempt,
 			}})
 		} else {
-			console.log('Invalid')
+			setMessage({ text: "Sorry, that word is invalid" })
 		}
 	}
 
@@ -68,7 +69,7 @@ const PlayerInGame = ({player, game, selectedWordIds, setSelectedWordIds}: Props
 				}
 			})
 		} else {
-			console.log('Invalid')
+			setMessage({ text: "Sorry, that word is invalid" })
 		}
 		setSelectedWordIds([])
 	}
