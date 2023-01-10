@@ -8,7 +8,8 @@ const Welcome = ({ setCurrentPlayer }: {setCurrentPlayer: React.Dispatch<React.S
             <h2>For best experience please play on desktop</h2>
             <a href="/">Rules</a>
             <JoinForm setCurrentPlayer={setCurrentPlayer}/>
-            <LetterTile />
+            <LetterTile randomRotation={true} />
+            <LetterTile randomRotation={false} />
         </div>
     )
 }

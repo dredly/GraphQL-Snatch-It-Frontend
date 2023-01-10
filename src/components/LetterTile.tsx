@@ -1,6 +1,6 @@
 import styled from "styled-components"
 
-const Tile = styled.div`
+const tileStyles = `
     box-sizing: border-box;
     border: 1px solid #221d0c;
     box-shadow: inset -0.1em -0.1em 0 0 #221d0c38;
@@ -12,15 +12,19 @@ const Tile = styled.div`
     align-items: center;
     justify-content: center;
     font-size: 40px;
-    transform: rotate(${Math.random()}turn);
 `
 
-const LetterTile = () => {
-    return (
-        <Tile>
-            <p>A</p>
-        </Tile>
-    )
+const Tile = styled.div`${tileStyles}`;
+
+const RotatedTile = styled.div`${tileStyles}transform: rotate(${Math.random()}turn)`
+
+const LetterTile = ({ randomRotation }: {randomRotation: boolean }) => {
+    if (randomRotation) {
+        return (
+            <RotatedTile><p>A</p></RotatedTile>
+        )
+    }
+    return <Tile><p>A</p></Tile>
 }
 
 export default LetterTile
