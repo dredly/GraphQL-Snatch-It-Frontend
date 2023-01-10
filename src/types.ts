@@ -54,3 +54,7 @@ export interface GameSummaryWithNames {
 	id: string
 	scoreList: PlayerScoreWithName[]
 }
+
+export interface Message {
+	text: string
+}
