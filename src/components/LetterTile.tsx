@@ -18,13 +18,13 @@ const Tile = styled.div`${tileStyles}`;
 
 const RotatedTile = styled.div`${tileStyles}transform: rotate(${Math.random()}turn)`
 
-const LetterTile = ({ randomRotation }: {randomRotation: boolean }) => {
+const LetterTile = ({ letter, randomRotation }: { letter: string, randomRotation: boolean }) => {
     if (randomRotation) {
         return (
-            <RotatedTile><p>A</p></RotatedTile>
+            <RotatedTile><p>{letter}</p></RotatedTile>
         )
     }
-    return <Tile><p>A</p></Tile>
+    return <Tile><p>{letter}</p></Tile>
 }
 
 export default LetterTile
