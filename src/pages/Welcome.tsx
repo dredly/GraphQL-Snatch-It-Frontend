@@ -5,6 +5,7 @@ const Welcome = ({ setCurrentPlayer }: {setCurrentPlayer: React.Dispatch<React.S
     return (
         <div>
             <h1>Welcome to Snatch It</h1>
+            <h2>For best experience please play on desktop</h2>
             <a href="/">Rules</a>
             <JoinForm setCurrentPlayer={setCurrentPlayer}/>
             <LetterTile />

@@ -38,8 +38,8 @@
     - [x] In-lobby feedback
 - [ ] Styling
     - [x] Basic setup for styled components
-    - [ ] Tiles
-    - [ ] Feedback message
+    - [x] Tiles
+    - [ ] Feedback message (avoid cumulative layout shift)
     - [ ] Style lobby
     - [ ] Style game
 - [ ] Advanced snatching functionality
