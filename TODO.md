@@ -33,11 +33,16 @@
         - [x] Update status for ended games
         - [x] No longer display removed games
     - [x] Improve lobby game display with i.e. the game owner name and how many spots are open if the game hasnt started yet
-- [ ] Show feedback messages to players
+- [x] Show feedback messages to players
     - [x] In-game feedback
-    - [ ] In-lobby feedback
+    - [x] In-lobby feedback
 - [ ] Styling
     - [ ] Basic setup for styled components
     - [ ] Feedback message
     - [ ] Style lobby
     - [ ] Style game
+- [ ] Advanced snatching functionality
+- [ ] Improved stemming algorithm
+- [ ] Improved lobby features
+    - [ ] Notifications when players join your game
+    - [ ] Notifications when all players ready
