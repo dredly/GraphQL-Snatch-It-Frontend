@@ -7,7 +7,8 @@ import { DECLARE_READINESS, WRITE_WORD, SNATCH_WORD } from "../graphql/mutations
 import WriteWordForm from "./WriteWordForm";
 import { scrabbleDict } from "../utils/dictSet";
 import { lettersAvailable, isWord, canSnatch } from "../utils/wordChecking";
-import { getWordString, findWordInGameById } from "../utils/helpers";
+import { findWordInGameById } from "../utils/helpers";
+import WordDisplay from "./WordDisplay";
 
 interface Props {
 	player: Player
@@ -103,13 +104,11 @@ const PlayerInGame = ({player, game, selectedWordIds, setSelectedWordIds, setMes
 				: null
 			}
 			<h4>Words</h4>
-			<ul>
+			<div>
 				{player.words.map(word => (
-					<li key={word.id}>
-						<button onClick={() => selectWord(word.id)}>{getWordString(word)}</button>
-					</li>
+					<WordDisplay word={word} handleClick={() => selectWord(word.id)} key={word.id}/>
 				))}
-			</ul>
+			</div>
         </div>
     )
 }

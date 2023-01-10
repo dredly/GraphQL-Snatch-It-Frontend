@@ -19,7 +19,7 @@ const Welcome = ({ setCurrentPlayer }: {setCurrentPlayer: React.Dispatch<React.S
             <h2>For best experience please play on desktop</h2>
             <a href="/">Rules</a>
             <JoinForm setCurrentPlayer={setCurrentPlayer}/>
-            <WordDisplay word={HELLO}/>
+            <WordDisplay word={HELLO} handleClick = { () => console.log("hi") }/>
         </div>
     )
 }

@@ -12,6 +12,7 @@ const tileStyles = `
     align-items: center;
     justify-content: center;
     font-size: 40px;
+    cursor: pointer;
 `
 
 const Tile = styled.div`${tileStyles}`;
