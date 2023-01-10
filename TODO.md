@@ -37,7 +37,8 @@
     - [x] In-game feedback
     - [x] In-lobby feedback
 - [ ] Styling
-    - [ ] Basic setup for styled components
+    - [x] Basic setup for styled components
+    - [ ] Tiles
     - [ ] Feedback message
     - [ ] Style lobby
     - [ ] Style game
