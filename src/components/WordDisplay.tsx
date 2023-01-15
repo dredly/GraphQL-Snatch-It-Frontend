@@ -12,7 +12,7 @@ const LetterRow = styled.div`
 const WordDisplay = ({ word, handleClick }: { word: Word, handleClick: () => void }) => {
     return (
         <LetterRow onClick={handleClick}>
-            {word.letters.map(lett => <LetterTile letter={lett.value} randomRotation={false} key={lett.id} />)}
+            {word.letters.map(lett => <LetterTile letter={lett.value} rotation={0} key={lett.id} />)}
         </LetterRow>
     )
 }

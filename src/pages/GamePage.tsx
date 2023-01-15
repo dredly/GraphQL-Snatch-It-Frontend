@@ -8,6 +8,7 @@ import { GameInProgressContext } from ".."
 import { GAME_ENDED, GAME_UPDATED } from "../graphql/subscriptions"
 import { END_GAME } from "../graphql/mutations"
 import InGameMessage from "../components/InGameMessage"
+import LetterPool from "../components/LetterPool"
 
 const GamePage = () => {
     const client = useApolloClient()
@@ -99,11 +100,7 @@ const GamePage = () => {
                 )
             })}
             <h3>Letter Pool</h3>
-            {game.letters.flipped.map(fl => {
-                return (
-                    <span key={fl.id}>{fl.value}</span>
-                )
-            })}
+            <LetterPool letters={game.letters.flipped}/>
         </div>
     )
 }
