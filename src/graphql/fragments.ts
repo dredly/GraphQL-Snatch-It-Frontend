@@ -24,6 +24,7 @@ export const GAME_DETAILS = gql`
 				letters {
 					id
 					value
+					rotation
 				}
 			}
     	}
@@ -31,10 +32,12 @@ export const GAME_DETAILS = gql`
 			unflipped {
 				id
 				value
+				rotation
 			}
 			flipped {
 				id
 				value
+				rotation
 			}
 		}
     }

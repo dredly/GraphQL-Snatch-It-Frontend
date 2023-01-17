@@ -6,11 +6,11 @@ const Welcome = ({ setCurrentPlayer }: {setCurrentPlayer: React.Dispatch<React.S
     const HELLO: Word = {
         id: "1",
         letters: [
-            { id: "2", value: "H" },
-            { id: "3", value: "E" },
-            { id: "4", value: "L" },
-            { id: "5", value: "L" },
-            { id: "6", value: "O" }
+            { id: "2", value: "H", rotation: 0 },
+            { id: "3", value: "E", rotation: 0 },
+            { id: "4", value: "L", rotation: 0 },
+            { id: "5", value: "L", rotation: 0 },
+            { id: "6", value: "O", rotation: 0 }
         ]
     }
     return (

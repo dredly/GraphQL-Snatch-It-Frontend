@@ -15,6 +15,7 @@ export interface GameInfo {
 export interface Letter {
 	id: string
 	value: string
+	rotation: number
 }
 
 export interface Word {

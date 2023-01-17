@@ -39,6 +39,8 @@
 - [ ] Styling
     - [x] Basic setup for styled components
     - [x] Tiles
+    - [ ] Adapt to letters having their rotation given by the backend
+    - [ ] Letter pool
     - [ ] Feedback message (avoid cumulative layout shift)
     - [ ] Style lobby
     - [ ] Style game
