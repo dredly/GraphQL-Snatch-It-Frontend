@@ -1,4 +1,4 @@
-import { Word, Player } from "../types";
+import { Word, Player, Letter } from "../types";
 
 export const count = (arr: unknown[], val: unknown) => {
     return arr.filter(item => item === val).length;
@@ -35,4 +35,12 @@ export const findWordInGameById = (wordId: string, players: Player[]): Word => {
         throw new Error('Word not found in game')
     }
     return foundWord;
+}
+
+export const findLetterById = (letterId: string, letters: Letter[]): Letter => {
+    const foundLetter = letters.find(lett => lett.id == letterId);
+    if (!foundLetter) {
+        throw new Error('Letter not found');
+    }
+    return foundLetter;
 }

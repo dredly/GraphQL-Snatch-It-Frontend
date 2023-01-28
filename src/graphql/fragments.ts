@@ -39,6 +39,10 @@ export const GAME_DETAILS = gql`
 				value
 				rotation
 			}
+			flippedPositions {
+				key
+				value
+			}
 		}
     }
 `

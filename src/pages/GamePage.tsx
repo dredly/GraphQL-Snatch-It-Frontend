@@ -2,7 +2,7 @@ import { useQuery, useSubscription, useApolloClient, useMutation } from "@apollo
 import { useState, useContext } from "react"
 import { ONE_GAME_IN_PROGRESS } from "../graphql/queries"
 import Summary from "../components/Summary"
-import { Game, GameSummary, Message } from "../types"
+import { FlippedPositionMapTuple, Game, GameSummary, Message } from "../types"
 import PlayerInGame from "../components/PlayerInGame"
 import { GameInProgressContext } from ".."
 import { GAME_ENDED, GAME_UPDATED } from "../graphql/subscriptions"
@@ -30,6 +30,7 @@ const GamePage = () => {
     useSubscription(GAME_UPDATED, {
         onSubscriptionData: ({ subscriptionData }) => {
             const updatedGame: Game = subscriptionData.data.gameInProgressUpdated
+            console.log("updatedGame", updatedGame)
 
             //Check if letters all used up
             if (!updatedGame.letters.unflipped.length) {
@@ -86,6 +87,10 @@ const GamePage = () => {
         )
     }
 
+    const flippedPositionsToMap = (flippedPositions: FlippedPositionMapTuple[]): Map<number, string> => {
+        return new Map(flippedPositions.map(position => [position.value, position.key]))
+    }
+
     return (
         <div>
             <InGameMessage message={message}/>
@@ -100,7 +105,7 @@ const GamePage = () => {
                 )
             })}
             <h3>Letter Pool</h3>
-            <LetterPool letters={game.letters.flipped}/>
+            <LetterPool letters={game.letters.flipped} letterPositions={flippedPositionsToMap(game.letters.flippedPostions)}/>
         </div>
     )
 }

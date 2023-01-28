@@ -39,11 +39,15 @@
 - [ ] Styling
     - [x] Basic setup for styled components
     - [x] Tiles
-    - [ ] Adapt to letters having their rotation given by the backend
+    - [x] Adapt to letters having their rotation given by the backend
     - [ ] Letter pool
+        - [ ] Adapt to letters having their position given by backend
+        - [ ] Handle spacing
     - [ ] Feedback message (avoid cumulative layout shift)
     - [ ] Style lobby
     - [ ] Style game
+    - [ ] Style score page
+    - [ ] Style Welcome page
 - [ ] Advanced snatching functionality
 - [ ] Improved stemming algorithm
 - [ ] Improved lobby features

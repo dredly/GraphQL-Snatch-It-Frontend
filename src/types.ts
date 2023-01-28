@@ -23,10 +23,16 @@ export interface Word {
 	letters: Letter[]
 }
 
+export interface FlippedPositionMapTuple {
+	key: string
+	value: number
+}
+
 export interface Letters {
 	unflipped: Letter[]
 	flipped: Letter[]
-  }
+	flippedPostions: FlippedPositionMapTuple[]
+}
 
 export interface Player extends PlayerInfo {
 	words: Word[]
