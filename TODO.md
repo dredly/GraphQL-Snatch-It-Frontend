@@ -41,8 +41,9 @@
     - [x] Tiles
     - [x] Adapt to letters having their rotation given by the backend
     - [ ] Letter pool
-        - [ ] Adapt to letters having their position given by backend
-        - [ ] Handle spacing
+        - [x] Adapt to letters having their position given by backend
+        - [x] Handle spacing
+        - [ ] Fix bug where letters shown in letter pool lag by 1
     - [ ] Feedback message (avoid cumulative layout shift)
     - [ ] Style lobby
     - [ ] Style game

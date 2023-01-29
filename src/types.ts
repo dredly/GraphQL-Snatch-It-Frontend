@@ -31,7 +31,7 @@ export interface FlippedPositionMapTuple {
 export interface Letters {
 	unflipped: Letter[]
 	flipped: Letter[]
-	flippedPostions: FlippedPositionMapTuple[]
+	flippedPositions: FlippedPositionMapTuple[]
 }
 
 export interface Player extends PlayerInfo {

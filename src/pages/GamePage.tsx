@@ -2,7 +2,7 @@ import { useQuery, useSubscription, useApolloClient, useMutation } from "@apollo
 import { useState, useContext } from "react"
 import { ONE_GAME_IN_PROGRESS } from "../graphql/queries"
 import Summary from "../components/Summary"
-import { FlippedPositionMapTuple, Game, GameSummary, Message } from "../types"
+import { Game, GameSummary, Message } from "../types"
 import PlayerInGame from "../components/PlayerInGame"
 import { GameInProgressContext } from ".."
 import { GAME_ENDED, GAME_UPDATED } from "../graphql/subscriptions"
@@ -87,10 +87,6 @@ const GamePage = () => {
         )
     }
 
-    const flippedPositionsToMap = (flippedPositions: FlippedPositionMapTuple[]): Map<number, string> => {
-        return new Map(flippedPositions.map(position => [position.value, position.key]))
-    }
-
     return (
         <div>
             <InGameMessage message={message}/>
@@ -105,7 +101,7 @@ const GamePage = () => {
                 )
             })}
             <h3>Letter Pool</h3>
-            <LetterPool letters={game.letters.flipped} letterPositions={flippedPositionsToMap(game.letters.flippedPostions)}/>
+            <LetterPool letters={game.letters.flipped} letterPositions={game.letters.flippedPositions} />
         </div>
     )
 }
