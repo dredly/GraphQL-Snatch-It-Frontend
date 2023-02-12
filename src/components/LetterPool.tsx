@@ -19,6 +19,8 @@ const LetterPoolContainer = styled.div`
 const LetterPool = ({ letters, letterPositions }: { letters: Letter[], letterPositions: FlippedPositionMapTuple[] }) => {
     if (!letterPositions.length) return null
 
+    console.log("letterPositions", letterPositions)
+
     const positions = letterPositions.map(ele => ele.value)
     const maxPosition = Math.max(...positions)
     const allPositions = [...Array(maxPosition + 1).keys()]

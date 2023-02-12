@@ -47,8 +47,9 @@
     - [x] Feedback message
         - [x] Avoid cumulative layout shift
         - [x] Implement colour scheme
-    - [ ] Fix bug where writing a word temporarily hides flipped letters
-    - [ ] Style lobby
+    - [x] Fix bug where writing a word temporarily hides flipped letters
+    - [ ] Fix FlippedPositionMapTuple key null warning
+    - [ ] Style lobby 
     - [ ] Style game
     - [ ] Style score page
     - [ ] Style Welcome page
