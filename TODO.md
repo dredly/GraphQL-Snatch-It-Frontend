@@ -44,7 +44,9 @@
         - [x] Adapt to letters having their position given by backend
         - [x] Handle spacing
         - [x] Fix bug where letters shown in letter pool lag by 1
-    - [ ] Feedback message (avoid cumulative layout shift)
+    - [ ] Feedback message
+        - [x] Avoid cumulative layout shift
+        - [ ] Implement colour scheme
     - [ ] Style lobby
     - [ ] Style game
     - [ ] Style score page

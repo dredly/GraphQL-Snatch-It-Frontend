@@ -1,8 +1,17 @@
+import styled from "styled-components"
 import { Message } from "../types"
 
+const MessageContainer = styled.div`
+    height: 25px;
+`
+
 const InGameMessage = ({ message }: {message: Message | null}) => {
-    if (message) return <h4>{ message.text }</h4>
-    return <></>
+    return (
+        <MessageContainer>
+            <h4>{ message ? message.text : "" }</h4>
+        </MessageContainer>
+    )
+
 }
 
 export default InGameMessage
