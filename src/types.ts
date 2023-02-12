@@ -62,6 +62,9 @@ export interface GameSummaryWithNames {
 	scoreList: PlayerScoreWithName[]
 }
 
+export type MessageColour = 'red' | 'orange' | 'green'
+
 export interface Message {
 	text: string
+	colour: MessageColour
 }

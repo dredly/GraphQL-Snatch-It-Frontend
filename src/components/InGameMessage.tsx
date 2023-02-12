@@ -1,14 +1,26 @@
 import styled from "styled-components"
-import { Message } from "../types"
+import { Message, MessageColour } from "../types"
+
+interface Props {
+    colour: MessageColour
+}
 
 const MessageContainer = styled.div`
     height: 25px;
 `
 
+const MessageText = styled.h4<Props>`
+    color: ${props => props.colour};
+`
+
 const InGameMessage = ({ message }: {message: Message | null}) => {
     return (
         <MessageContainer>
-            <h4>{ message ? message.text : "" }</h4>
+            {
+                message 
+                ? <MessageText colour={message.colour}>{message.text}</MessageText> 
+                : null
+            }
         </MessageContainer>
     )
 

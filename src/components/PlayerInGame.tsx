@@ -45,7 +45,10 @@ const PlayerInGame = ({player, game, selectedWordIds, setSelectedWordIds, setMes
 				word: wordAttempt,
 			}})
 		} else {
-			setMessage({ text: "Sorry, that word is invalid" })
+			setMessage({ 
+				text: "Sorry, that word is invalid",
+				colour: "red"
+			})
 		}
 	}
 
@@ -70,7 +73,10 @@ const PlayerInGame = ({player, game, selectedWordIds, setSelectedWordIds, setMes
 				}
 			})
 		} else {
-			setMessage({ text: "Sorry, that word is invalid" })
+			setMessage({ 
+				text: "Sorry, that word is invalid",
+				colour: "red" 
+			})
 		}
 		setSelectedWordIds([])
 	}

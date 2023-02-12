@@ -35,7 +35,10 @@ const GamePage = () => {
             //Check if letters all used up
             if (!updatedGame.letters.unflipped.length) {
 
-                setMessage({ text: "Letters have run out! You still have 30 seconds to play." })
+                setMessage({ 
+                    text: "Letters have run out! You still have 30 seconds to play.",
+                    colour: 'orange' 
+                })
 
                 endGame({
                     variables: {

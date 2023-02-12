@@ -108,7 +108,10 @@ const Lobby = ({setGameInProgressId}: {setGameInProgressId: React.Dispatch<React
 
 	const handleNewGame = () => {
 		setInGame(true)
-		setMessage({ text: "Created Game" })
+		setMessage({ 
+			text: "Created Game",
+			colour: 'green'
+		})
 		addGame({variables: {playerId: currentPlayerId}})
 	}
 
