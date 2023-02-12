@@ -21,13 +21,12 @@ const LetterPool = ({ letters, letterPositions }: { letters: Letter[], letterPos
 
     const positions = letterPositions.map(ele => ele.value)
     const maxPosition = Math.max(...positions)
-    const allPositions = [...Array(maxPosition).keys()]
+    const allPositions = [...Array(maxPosition + 1).keys()]
 
     return (
         <LetterPoolContainer>
             {allPositions.map(pos => {
                 if (positions.includes(pos)) {
-                    console.log("letterPositions", letterPositions)
                     const letterPosition = letterPositions.find(lp => lp.value === pos)
                     if (!letterPosition) {
                         throw new Error("Could not find letter from letterPositions")

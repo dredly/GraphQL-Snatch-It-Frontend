@@ -40,10 +40,10 @@
     - [x] Basic setup for styled components
     - [x] Tiles
     - [x] Adapt to letters having their rotation given by the backend
-    - [ ] Letter pool
+    - [x] Letter pool
         - [x] Adapt to letters having their position given by backend
         - [x] Handle spacing
-        - [ ] Fix bug where letters shown in letter pool lag by 1
+        - [x] Fix bug where letters shown in letter pool lag by 1
     - [ ] Feedback message (avoid cumulative layout shift)
     - [ ] Style lobby
     - [ ] Style game
