@@ -7,7 +7,8 @@ import { DECLARE_READINESS, WRITE_WORD, SNATCH_WORD } from "../graphql/mutations
 import WriteWordForm from "./WriteWordForm";
 import { scrabbleDict } from "../utils/dictSet";
 import { lettersAvailable, isWord, canSnatch } from "../utils/wordChecking";
-import { getWordString, findWordInGameById } from "../utils/helpers";
+import { findWordInGameById } from "../utils/helpers";
+import WordDisplay from "./WordDisplay";
 
 interface Props {
 	player: Player
@@ -44,7 +45,10 @@ const PlayerInGame = ({player, game, selectedWordIds, setSelectedWordIds, setMes
 				word: wordAttempt,
 			}})
 		} else {
-			setMessage({ text: "Sorry, that word is invalid" })
+			setMessage({ 
+				text: "Sorry, that word is invalid",
+				colour: "red"
+			})
 		}
 	}
 
@@ -69,7 +73,10 @@ const PlayerInGame = ({player, game, selectedWordIds, setSelectedWordIds, setMes
 				}
 			})
 		} else {
-			setMessage({ text: "Sorry, that word is invalid" })
+			setMessage({ 
+				text: "Sorry, that word is invalid",
+				colour: "red" 
+			})
 		}
 		setSelectedWordIds([])
 	}
@@ -103,13 +110,11 @@ const PlayerInGame = ({player, game, selectedWordIds, setSelectedWordIds, setMes
 				: null
 			}
 			<h4>Words</h4>
-			<ul>
+			<div>
 				{player.words.map(word => (
-					<li key={word.id}>
-						<button onClick={() => selectWord(word.id)}>{getWordString(word)}</button>
-					</li>
+					<WordDisplay word={word} handleClick={() => selectWord(word.id)} key={word.id}/>
 				))}
-			</ul>
+			</div>
         </div>
     )
 }

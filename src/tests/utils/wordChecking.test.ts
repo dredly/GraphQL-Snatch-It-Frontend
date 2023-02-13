@@ -4,43 +4,43 @@ import { scrabbleDict } from "../../utils/dictSet";
 
 const testLetterPool: Letter[] = [
     {
-        id: '1', value: 'A'
+        id: '1', value: 'A', rotation: 0
     },
     {
-        id: '2', value: 'B'
+        id: '2', value: 'B', rotation: 0
     },
     {
-        id: '3', value: 'C'
+        id: '3', value: 'C', rotation: 0
     },
     {
-        id: '4', value: 'D'
+        id: '4', value: 'D', rotation: 0
     },
     {
-        id: '5', value: 'E'
+        id: '5', value: 'E', rotation: 0
     },
     {
-        id: '6', value: 'F'
+        id: '6', value: 'F', rotation: 0
     },
     {
-        id: '7', value: 'F'
+        id: '7', value: 'F', rotation: 0
     },
     {
-        id: '8', value: 'R'
+        id: '8', value: 'R', rotation: 0
     },
     {
-        id: '9', value: 'I'
+        id: '9', value: 'I', rotation: 0
     },
     {
-        id: '13', value: 'S'
+        id: '13', value: 'S', rotation: 0
     }
 ]
 
 const testWord: Word = {
     id: '1',
     letters: [
-        {id: '10', value: 'C'},
-        {id: '11', value: 'A'},
-        {id: '12', value: 'P'}
+        {id: '10', value: 'C', rotation: 0},
+        {id: '11', value: 'A', rotation: 0},
+        {id: '12', value: 'P', rotation: 0}
     ]
 }
 

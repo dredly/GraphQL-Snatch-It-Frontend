@@ -37,12 +37,28 @@
     - [x] In-game feedback
     - [x] In-lobby feedback
 - [ ] Styling
-    - [ ] Basic setup for styled components
-    - [ ] Feedback message
-    - [ ] Style lobby
+    - [x] Basic setup for styled components
+    - [x] Tiles
+    - [x] Adapt to letters having their rotation given by the backend
+    - [x] Letter pool
+        - [x] Adapt to letters having their position given by backend
+        - [x] Handle spacing
+        - [x] Fix bug where letters shown in letter pool lag by 1
+    - [x] Feedback message
+        - [x] Avoid cumulative layout shift
+        - [x] Implement colour scheme
+    - [x] Fix bug where writing a word temporarily hides flipped letters
+    - [ ] Fix FlippedPositionMapTuple key null warning
+    - [ ] Style lobby 
     - [ ] Style game
+    - [ ] Style score page
+    - [ ] Style Welcome page
 - [ ] Advanced snatching functionality
 - [ ] Improved stemming algorithm
 - [ ] Improved lobby features
     - [ ] Notifications when players join your game
     - [ ] Notifications when all players ready
+- [ ] Improved in-game feedback messages
+    - [ ] Notification when word has been snatched
+    - [ ] Expiry on notifications
+    - [ ] Notification on writing or snatching word?

@@ -15,6 +15,7 @@ export interface GameInfo {
 export interface Letter {
 	id: string
 	value: string
+	rotation: number
 }
 
 export interface Word {
@@ -22,10 +23,16 @@ export interface Word {
 	letters: Letter[]
 }
 
+export interface FlippedPositionMapTuple {
+	key: string
+	value: number
+}
+
 export interface Letters {
 	unflipped: Letter[]
 	flipped: Letter[]
-  }
+	flippedPositions: FlippedPositionMapTuple[]
+}
 
 export interface Player extends PlayerInfo {
 	words: Word[]
@@ -55,6 +62,9 @@ export interface GameSummaryWithNames {
 	scoreList: PlayerScoreWithName[]
 }
 
+export type MessageColour = 'red' | 'orange' | 'green'
+
 export interface Message {
 	text: string
+	colour: MessageColour
 }

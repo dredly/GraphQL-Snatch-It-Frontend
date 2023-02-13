@@ -20,7 +20,8 @@ const GameInLobby = (
 	const joinGame = async () => {
 		await join({variables: {playerId: currentPlayerId, gameId: gameInfo.id}})
 		setMessage({
-			text: `Joined ${gameInfo.players[0].name}'s game`
+			text: `Joined ${gameInfo.players[0].name}'s game`,
+			colour: "green"
 		})
 	}
 

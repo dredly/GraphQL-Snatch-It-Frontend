@@ -8,6 +8,7 @@ import { GameInProgressContext } from ".."
 import { GAME_ENDED, GAME_UPDATED } from "../graphql/subscriptions"
 import { END_GAME } from "../graphql/mutations"
 import InGameMessage from "../components/InGameMessage"
+import LetterPool from "../components/LetterPool"
 
 const GamePage = () => {
     const client = useApolloClient()
@@ -29,11 +30,15 @@ const GamePage = () => {
     useSubscription(GAME_UPDATED, {
         onSubscriptionData: ({ subscriptionData }) => {
             const updatedGame: Game = subscriptionData.data.gameInProgressUpdated
+            console.log("updatedGame", updatedGame)
 
             //Check if letters all used up
             if (!updatedGame.letters.unflipped.length) {
 
-                setMessage({ text: "Letters have run out! You still have 30 seconds to play." })
+                setMessage({ 
+                    text: "Letters have run out! You still have 30 seconds to play.",
+                    colour: 'orange' 
+                })
 
                 endGame({
                     variables: {
@@ -99,11 +104,7 @@ const GamePage = () => {
                 )
             })}
             <h3>Letter Pool</h3>
-            {game.letters.flipped.map(fl => {
-                return (
-                    <span key={fl.id}>{fl.value}</span>
-                )
-            })}
+            <LetterPool letters={game.letters.flipped} letterPositions={game.letters.flippedPositions} />
         </div>
     )
 }
